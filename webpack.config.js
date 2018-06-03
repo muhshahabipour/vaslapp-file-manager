@@ -4,7 +4,7 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 
-var outputFile = 'contentManager.js';
+var outputFile = 'filemanager.js';
 
 let pathsToClean = ['dist']
 
@@ -80,7 +80,8 @@ module.exports = env => {
         plugins: [
             new CleanWebpackPlugin(isProduction ? pathsToClean : [], cleanOptions),
             new ExtractTextPlugin({
-                filename: "contentManager.css?[hash]-[chunkhash]-[contenthash]-[name]",
+                // filename: "filemanager.css?[hash]-[chunkhash]-[contenthash]-[name]",
+                filename: "filemanager.css?[hash]-[chunkhash]",
                 disable: false,
                 allChunks: true
             }),

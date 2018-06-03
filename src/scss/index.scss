@@ -9,6 +9,7 @@ $drilldown-disable-hover-link-color: #656565;
 $drilldown-disable-focus-link-color: #656565;
 $drilldown-disable-active-link-color: #656565;
 @import "filemanager";
+
 // ===========================================================
 body {
     font-family: Roboto, IRANSans, sans-serif !important; // direction: rtl;
@@ -171,8 +172,6 @@ body {
     }
 }
 
-@import '../../node_modules/medium-editor/dist/css/medium-editor.min.css';
-@import '../../node_modules/medium-editor/dist/css/themes/beagle.min.css';
 .flexbox {
     display: flex;
     &.flexbox-align-center {
