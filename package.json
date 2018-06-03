@@ -1,0 +1,47 @@
+{
+  "name": "vaslapp-file-manager",
+  "version": "1.0.0",
+  "description": "show file and directory in modal (custom)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --env.NODE_ENV=local --env.development --progress",
+    "build": "webpack --env.NODE_ENV=local --env.production --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muhshahabipour/vaslapp-file-manager.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/muhshahabipour/vaslapp-file-manager/issues"
+  },
+  "homepage": "https://github.com/muhshahabipour/vaslapp-file-manager#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "clean-webpack-plugin": "^0.1.18",
+    "css-loader": "^0.28.10",
+    "es6-event-emitter": "^1.10.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^1.1.11",
+    "fs": "0.0.1-security",
+    "handlebars": "^4.0.11",
+    "handlebars-loader": "^1.6.0",
+    "hbs": "^4.0.1",
+    "node-sass": "^4.7.2",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.20.2",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.9",
+    "webpack-dev-server": "^3.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.3.1"
+  }
+}
