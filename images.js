@@ -1,0 +1,23 @@
+const faker = require("faker");
+
+
+module.exports = () => {
+    const data = { images: {
+        status : 1,
+        code : 200,
+        msg : "دریافت اطلاعات با موفقیت",
+        directoryInfo: {
+            data : []
+        }
+
+    } }
+
+    data.images.directoryInfo.data.push({ id: 0, name: `/di`, isDirectory: true })
+    
+    for (let i = 1; i < 7; i++) {
+      data.images.directoryInfo.data.push({ id: i, name: `user${i}`, linkHost: faker.image.image(), linkPath: '' })
+    }
+
+
+    return data
+  }

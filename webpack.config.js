@@ -22,6 +22,7 @@ module.exports = env => {
     let isProduction = env.production;
 
     return {
+        mode: 'none',
         entry: ['./src/js/index.js'],
         output: {
             path: path.resolve(__dirname, 'dist'),

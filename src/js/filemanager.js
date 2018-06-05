@@ -9,25 +9,38 @@ export default class fileManager {
     }
 
     init = (button, coreClass) => {
-        var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         let $modal = this.modal;
+
+        var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
-                if (!button.data("isExtra")) {
-                    $('#cm-content-' + button.data("sectionId")).html(event.target.dataset.address);
-                    coreClass.updateContentObject(document.getElementById('cm-content-' + button.data("sectionId")), button.data("type"));
-                    let buttonCtrl = document.querySelector('#cm-btn-control-' + button.data("sectionId"));
-                    buttonCtrl.classList.add("hidden");
-                } else {
-                    const dataset = event.target.dataset;
+                // const dataset = event.target.dataset;
+                const dataset = event.currentTarget.dataset;
 
-                    $(document).trigger("fm.file.item.select", dataset);
+                var event = new CustomEvent('fm.file.item.select', {
+                    detail: dataset
+                });
 
-                }
+                // Dispatch the event.
+                document.dispatchEvent(event);
 
-                coreClass.createSection(document.querySelector("#cm-section-" + button.data("sectionId")));
+                $modal.modal("hide");
+            })
+        })
 
-                general.setEndOfContenteditable(document.querySelector(".cm-wrapper").lastElementChild.querySelector('.cm-content'));
+        var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
+        folderItems.forEach((item) => {
+            item.addEventListener('click', (event) => {
+                
+                // const dataset = event.target.dataset;
+                const dataset = event.currentTarget.dataset;
+
+                var event = new CustomEvent('fm.folder.item.select', {
+                    detail: dataset
+                });
+
+                // Dispatch the event.
+                document.dispatchEvent(event);
 
                 $modal.modal("hide");
             })

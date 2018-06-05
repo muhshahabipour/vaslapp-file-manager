@@ -43,10 +43,9 @@ export default class core {
                 .then(function (response) {
                     // console.info(response);
                     if (response.status === 1) {
-
                         response.directoryInfo.data.forEach((item) => {
                             if (item.isDirectory) {
-                                // modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({name: item.name}));
+                                modal.find('.modal-body .fm-wrapper').append(fileManagerItemFolder({name: item.name}));
                             } else {
                                 modal.find('.modal-body .fm-wrapper').append(fileManagerItemFile({
                                     name: item.name,

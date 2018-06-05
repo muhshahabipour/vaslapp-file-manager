@@ -53,8 +53,9 @@
   background-color: #ccc;
   overflow: hidden;
   position: relative;
+  cursor: pointer;
   &::before{
-    content: 'insert_drive_file';
+    content: attr(data-type);
     font-family: 'Material Icons';
     font-size: 42px;
     position: absolute; 
