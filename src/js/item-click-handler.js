@@ -56,7 +56,7 @@ export default class ItemClickHandler {
 
         document.addEventListener('fm.folder.item.select', function (e) {
             // e.target matches elem
-            // console.info(e.detail);
+            console.info(e.detail);
             self.currentClass.getFilesList({
                 nextPagekey: '',
                 path: e.detail.address
