@@ -1,6 +1,6 @@
 import '../scss/index.scss';
 import extend from 'lodash/extend';
-import core from './core';
+import Core from './core';
 import {
     relative
 } from 'path';
@@ -19,13 +19,11 @@ let defaults = {
 let elem = null;
 
 
-export class FileManager {
+export class FileManager extends Core{
 
     constructor(options = {}) {
-
         defaults = extend(defaults, options)
-
-        new core(defaults);
+        super(defaults);
     }
 
 }

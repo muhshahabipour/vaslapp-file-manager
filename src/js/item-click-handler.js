@@ -1,19 +1,24 @@
-import general from './general-functions'
+import general from './general-functions';
 
 
-export default class fileManager {
-    modal = null;
+var self;
 
-    constructor(modal = null) {
-        this.modal = modal;
+
+export default class ItemClickHandler {
+    currentClass;
+
+
+    constructor(currentClass) {
+        this.currentClass = currentClass;
+        self = this;
     }
 
-    init = (button, coreClass) => {
-        let $modal = this.modal;
-
+    init = () => {
+        let $modal = $(self.currentClass.modal);
         var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         fileItems.forEach((item) => {
-            item.addEventListener('click', (event) => {
+            $(item).off('click');
+            $(item).on('click', (event) => {
                 // const dataset = event.target.dataset;
                 const dataset = event.currentTarget.dataset;
 
@@ -30,8 +35,9 @@ export default class fileManager {
 
         var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
         folderItems.forEach((item) => {
-            item.addEventListener('click', (event) => {
-                
+            $(item).off('click');
+            $(item).on('click', (event) => {
+
                 // const dataset = event.target.dataset;
                 const dataset = event.currentTarget.dataset;
 
@@ -42,11 +48,23 @@ export default class fileManager {
                 // Dispatch the event.
                 document.dispatchEvent(event);
 
-                $modal.modal("hide");
+                // $modal.modal("hide");
             })
         })
 
 
+
+        document.addEventListener('fm.folder.item.select', function (e) {
+            // e.target matches elem
+            // console.info(e.detail);
+            self.currentClass.getFilesList({
+                nextPagekey: '',
+                path: e.detail.address
+            });
+        }, false);
+
     }
+
+
 
 }
