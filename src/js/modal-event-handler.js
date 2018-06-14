@@ -49,22 +49,24 @@ export default class ModalEventHandler {
     renderData = (response = {}) => {
         $(self.modal).find('.modal-body .fm-wrapper').html("");
 
-        response.directoryInfo.data.forEach((item) => {
-            if (item.isDirectory) {
-                $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
-                    name: item.name
-                }));
-            } else {
-                $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
-                    name: item.name,
-                    path: item.linkHost + item.linkPath,
-                    isImage: true
-                }));
-            }
+        setTimeout(function () {
+            response.directoryInfo.data.forEach((item) => {
+                if (item.isDirectory) {
+                    $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
+                        name: item.name
+                    }));
+                } else {
+                    $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
+                        name: item.name,
+                        path: item.linkHost + item.linkPath,
+                        isImage: true
+                    }));
+                }
 
-        });
-        const itemClickHandler = new ItemClickHandler(self);
-        itemClickHandler.init();
+            });
+            const itemClickHandler = new ItemClickHandler(self.modal, self.defaults);
+            itemClickHandler.init();
+        }, 2000);
     }
 
 
@@ -72,11 +74,11 @@ export default class ModalEventHandler {
         nextPagekey: '',
         path: '/'
     }) => {
-
+        console.log(extend(data))
+        console.log(extend(data, self.defaults.ajax.data))
         $.ajax({
                 url: self.defaults.ajax.url,
                 method: self.defaults.ajax.method,
-
                 data: extend(data, self.defaults.ajax.data),
                 headers: self.defaults.ajax.headers
             })

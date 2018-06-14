@@ -1,20 +1,20 @@
 import general from './general-functions';
+import ModalEventHandler from './modal-event-handler'
 
 
 var self;
 
 
 export default class ItemClickHandler {
-    currentClass;
 
-
-    constructor(currentClass) {
-        this.currentClass = currentClass;
+    constructor(modal, defaults) {
+        this.modal = modal;
+        this.defaults = defaults;
         self = this;
     }
 
     init = () => {
-        let $modal = $(self.currentClass.modal);
+        let $modal = $(self.modal);
         var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         fileItems.forEach((item) => {
             $(item).off('click');
@@ -53,12 +53,15 @@ export default class ItemClickHandler {
         })
 
 
-
+        // document.removeEventListener('fm.folder.item.select');
         document.addEventListener('fm.folder.item.select', function (e) {
             // e.target matches elem
-            console.info(e.detail);
-            self.currentClass.getFilesList({
-                nextPagekey: '',
+            console.info("HERE", e.detail);
+
+            let modalEventHandler = new ModalEventHandler(self.defaults);
+            modalEventHandler.setModal(self.modal);
+            modalEventHandler.getFilesList({
+                nextPagekey: e.detail.nextPagekey || '',
                 path: e.detail.address
             });
         }, false);

@@ -12,7 +12,7 @@ module.exports = () => {
 
     } }
 
-    data.images.directoryInfo.data.push({ id: 0, name: `/di`, isDirectory: true })
+    data.images.directoryInfo.data.push({ id: `/di`, name: `/di`, isDirectory: true })
     
     for (let i = 1; i < 7; i++) {
       data.images.directoryInfo.data.push({ id: i, name: `user${i}`, linkHost: faker.image.image(), linkPath: '' })
