@@ -17,6 +17,16 @@ export default class ModalEventHandler {
     constructor(defaults) {
         this.defaults = defaults;
         self = this;
+
+        document.addEventListener('fm.folder.item.select', function (e) {
+            // console.info("HERE", e.detail);
+
+            self.getFilesList({
+                nextPagekey: e.detail.nextPagekey || '',
+                path: e.detail.address
+            });
+        }, false);
+
     }
 
     enableEvents = (defaults) => {
@@ -74,8 +84,8 @@ export default class ModalEventHandler {
         nextPagekey: '',
         path: '/'
     }) => {
-        console.log(extend(data))
-        console.log(extend(data, self.defaults.ajax.data))
+        // console.log(extend(data))
+        // console.log(extend(data, self.defaults.ajax.data))
         $.ajax({
                 url: self.defaults.ajax.url,
                 method: self.defaults.ajax.method,

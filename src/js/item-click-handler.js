@@ -14,57 +14,43 @@ export default class ItemClickHandler {
     }
 
     init = () => {
+
         let $modal = $(self.modal);
+        
+        var eventFileItemClick = new Event('fm.file.item.select');
+
         var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         fileItems.forEach((item) => {
-            $(item).off('click');
-            $(item).on('click', (event) => {
+            item.addEventListener('click', (event) => {
                 // const dataset = event.target.dataset;
                 const dataset = event.currentTarget.dataset;
 
-                var event = new CustomEvent('fm.file.item.select', {
-                    detail: dataset
-                });
+                eventFileItemClick.detail = dataset;
 
                 // Dispatch the event.
-                document.dispatchEvent(event);
+                document.dispatchEvent(eventFileItemClick);
 
                 $modal.modal("hide");
             })
         })
 
+        var eventFolderItemClick = new Event('fm.folder.item.select');
+
         var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
         folderItems.forEach((item) => {
-            $(item).off('click');
-            $(item).on('click', (event) => {
-
+            item.addEventListener('click', (event) => {
                 // const dataset = event.target.dataset;
                 const dataset = event.currentTarget.dataset;
 
-                var event = new CustomEvent('fm.folder.item.select', {
-                    detail: dataset
-                });
+                eventFolderItemClick.detail = dataset
 
                 // Dispatch the event.
-                document.dispatchEvent(event);
+                document.dispatchEvent(eventFolderItemClick);
 
                 // $modal.modal("hide");
             })
         })
 
-
-        // document.removeEventListener('fm.folder.item.select');
-        document.addEventListener('fm.folder.item.select', function (e) {
-            // e.target matches elem
-            console.info("HERE", e.detail);
-
-            let modalEventHandler = new ModalEventHandler(self.defaults);
-            modalEventHandler.setModal(self.modal);
-            modalEventHandler.getFilesList({
-                nextPagekey: e.detail.nextPagekey || '',
-                path: e.detail.address
-            });
-        }, false);
 
     }
 
