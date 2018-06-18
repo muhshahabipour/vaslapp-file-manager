@@ -15,9 +15,15 @@ module.exports = () => {
     }
 
     data.images.directoryInfo.data.push({
-        id: '/' + faker.random.word(),
-        name: '/' + faker.random.word(),
-        isDirectory: true
+        id: 0,
+        name: '/ali',
+        isDirectory: true,
+        data: [{
+            id: 11111,
+            name: `user11111`,
+            linkHost: faker.image.image(),
+            linkPath: ''
+        }]
     })
 
     for (let i = 1; i < 7; i++) {

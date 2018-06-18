@@ -59,7 +59,7 @@ export default class ModalEventHandler {
     renderData = (response = {}) => {
         $(self.modal).find('.modal-body .fm-wrapper').html("");
 
-        setTimeout(function () {
+        // setTimeout(function () {
             response.directoryInfo.data.forEach((item) => {
                 if (item.isDirectory) {
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
@@ -76,7 +76,7 @@ export default class ModalEventHandler {
             });
             const itemClickHandler = new ItemClickHandler(self.modal, self.defaults);
             itemClickHandler.init();
-        }, 2000);
+        // }, 2000);
     }
 
 
