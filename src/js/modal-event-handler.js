@@ -34,6 +34,8 @@ export default class ModalEventHandler {
         $(self.modal).on('show.bs.modal', function (event) {
             self.button = $(event.relatedTarget);
 
+            self.enableLoadMore();
+
             self.getFilesList();
         });
 
@@ -56,26 +58,33 @@ export default class ModalEventHandler {
         });
     }
 
-    renderData = (response = {}) => {
-        $(self.modal).find('.modal-body .fm-wrapper').html("");
+    renderData = (response = {}, append = false) => {
+
+        $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey)
+        $(self.modal).find('#path').val(response.directoryInfo.currentPath)
+
+        if (!append)
+            $(self.modal).find('.modal-body .fm-wrapper').html("");
+
+
 
         // setTimeout(function () {
-            response.directoryInfo.data.forEach((item) => {
-                if (item.isDirectory) {
-                    $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
-                        name: item.name
-                    }));
-                } else {
-                    $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
-                        name: item.name,
-                        path: item.linkHost + item.linkPath,
-                        isImage: true
-                    }));
-                }
+        response.directoryInfo.data.forEach((item) => {
+            if (item.isDirectory) {
+                $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
+                    name: item.name
+                }));
+            } else {
+                $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
+                    name: item.name,
+                    path: item.linkHost + item.linkPath,
+                    isImage: true
+                }));
+            }
 
-            });
-            const itemClickHandler = new ItemClickHandler(self.modal, self.defaults);
-            itemClickHandler.init();
+        });
+        const itemClickHandler = new ItemClickHandler(self.modal, self.defaults);
+        itemClickHandler.init();
         // }, 2000);
     }
 
@@ -83,7 +92,7 @@ export default class ModalEventHandler {
     getFilesList = (data = {
         nextPagekey: '',
         path: '/'
-    }) => {
+    }, append = false) => {
         // console.log(extend(data))
         // console.log(extend(data, self.defaults.ajax.data))
         $.ajax({
@@ -94,7 +103,7 @@ export default class ModalEventHandler {
             })
             .then(function (response) {
                 if (response.status === 1) {
-                    self.renderData(response);
+                    self.renderData(response, append);
                 }
 
             })
@@ -104,7 +113,18 @@ export default class ModalEventHandler {
 
     }
 
+    enableLoadMore = () => {
+        $(self.modal).find('.modal-body').off('scroll');
+        $(self.modal).find('.modal-body').scroll(function () {
+            if ($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16)) {
+                self.getFilesList({
+                    nextPagekey: $(self.modal).find('#nextPagekey').val(),
+                    path: $(self.modal).find('#path').val()
+                }, true)
+            }
+        });
 
+    }
 
 
     getModal = () => self.modal;

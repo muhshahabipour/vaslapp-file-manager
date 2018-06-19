@@ -26,7 +26,7 @@ module.exports = () => {
         }]
     })
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < 20; i++) {
         data.images.directoryInfo.data.push({
             id: i,
             name: `user${i}`,
