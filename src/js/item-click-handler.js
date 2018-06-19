@@ -1,10 +1,7 @@
-import general from './general-functions';
-import ModalEventHandler from './modal-event-handler'
 import extend from 'lodash/extend';
 
 
 var self;
-
 
 export default class ItemClickHandler {
 

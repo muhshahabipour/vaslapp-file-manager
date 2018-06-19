@@ -1,6 +1,5 @@
-import ItemClickHandler from './item-click-handler'
+import ItemClickHandler from './item-click-handler';
 import extend from 'lodash/extend';
-import map from 'lodash/map';
 
 
 import fileManagerItemFile from "./templates/item-file.handlebars";

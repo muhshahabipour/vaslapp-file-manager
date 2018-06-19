@@ -1,6 +1,4 @@
-import ModalEventHandler from './modal-event-handler'
-
-
+import ModalEventHandler from './modal-event-handler';
 
 import modalFileManager from "./templates/modal-filemanager.handlebars";
 
