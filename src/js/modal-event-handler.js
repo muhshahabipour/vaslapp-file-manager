@@ -5,6 +5,7 @@ import map from 'lodash/map';
 
 import fileManagerItemFile from "./templates/item-file.handlebars";
 import fileManagerItemFolder from "./templates/item-folder.handlebars";
+import fileManagerItemBack from "./templates/item-back.handlebars";
 
 
 var self;
@@ -58,7 +59,7 @@ export default class ModalEventHandler {
         });
     }
 
-    renderData = (response = {}, append = false) => {
+    renderData = (response = {}, append = false, backAddress = "") => {
 
         $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey)
         $(self.modal).find('#path').val(response.directoryInfo.currentPath)
@@ -66,7 +67,10 @@ export default class ModalEventHandler {
         if (!append)
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
-
+        if(backAddress)
+            $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemBack({
+                address: backAddress
+            }));
 
         // setTimeout(function () {
         response.directoryInfo.data.forEach((item) => {
@@ -93,8 +97,6 @@ export default class ModalEventHandler {
         nextPagekey: '',
         path: '/'
     }, append = false) => {
-        // console.log(extend(data))
-        // console.log(extend(data, self.defaults.ajax.data))
         $.ajax({
                 url: self.defaults.ajax.url,
                 method: self.defaults.ajax.method,
@@ -120,7 +122,7 @@ export default class ModalEventHandler {
                 self.getFilesList({
                     nextPagekey: $(self.modal).find('#nextPagekey').val(),
                     path: $(self.modal).find('#path').val()
-                }, true)
+                }, true, "/")
             }
         });
 
