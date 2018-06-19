@@ -1,5 +1,6 @@
 import general from './general-functions';
 import ModalEventHandler from './modal-event-handler'
+import extend from 'lodash/extend';
 
 
 var self;
@@ -40,7 +41,9 @@ export default class ItemClickHandler {
         folderItems.forEach((item) => {
             item.addEventListener('click', (event) => {
                 // const dataset = event.target.dataset;
-                const dataset = event.currentTarget.dataset;
+                let dataset = event.currentTarget.dataset;
+
+                extend(dataset, {backPath: $modal.find("#backPath").val()});
 
                 eventFolderItemClick.detail = dataset
 

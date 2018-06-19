@@ -25,7 +25,8 @@ export default class ModalEventHandler {
             self.getFilesList({
                 nextPagekey: e.detail.nextPagekey || '',
                 path: e.detail.address
-            });
+            }, false, e.detail.backPath);
+
         }, false);
 
     }
@@ -61,13 +62,14 @@ export default class ModalEventHandler {
 
     renderData = (response = {}, append = false, backAddress = "") => {
 
-        $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey)
-        $(self.modal).find('#path').val(response.directoryInfo.currentPath)
+        $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
+        $(self.modal).find('#path').val(response.directoryInfo.currentPath);
+        $(self.modal).find('#backPath').val(backAddress);
 
         if (!append)
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
-        if(backAddress)
+        // if (backAddress && (response.directoryInfo.currentPath !== "/" || response.directoryInfo.currentPath !== "%2F" || response.directoryInfo.currentPath !== ""))
             $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemBack({
                 address: backAddress
             }));
@@ -96,7 +98,7 @@ export default class ModalEventHandler {
     getFilesList = (data = {
         nextPagekey: '',
         path: '/'
-    }, append = false) => {
+    }, append = false, backAddress = "") => {
         $.ajax({
                 url: self.defaults.ajax.url,
                 method: self.defaults.ajax.method,
@@ -105,7 +107,7 @@ export default class ModalEventHandler {
             })
             .then(function (response) {
                 if (response.status === 1) {
-                    self.renderData(response, append);
+                    self.renderData(response, append, backAddress);
                 }
 
             })
@@ -122,7 +124,7 @@ export default class ModalEventHandler {
                 self.getFilesList({
                     nextPagekey: $(self.modal).find('#nextPagekey').val(),
                     path: $(self.modal).find('#path').val()
-                }, true, "/")
+                }, true)
             }
         });
 
