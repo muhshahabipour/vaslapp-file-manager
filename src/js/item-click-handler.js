@@ -5,8 +5,9 @@ var self;
 
 export default class ItemClickHandler {
 
-    constructor(modal, defaults) {
+    constructor(modal, button, defaults) {
         this.modal = modal;
+        this.button = button;
         this.defaults = defaults;
         self = this;
     }
@@ -14,6 +15,7 @@ export default class ItemClickHandler {
     init = () => {
 
         let $modal = $(self.modal);
+        let $button = $(self.button);
         
         var eventFileItemClick = new Event('fm.file.item.select');
 
@@ -41,6 +43,7 @@ export default class ItemClickHandler {
                 let dataset = event.currentTarget.dataset;
 
                 extend(dataset, {backPath: $modal.find("#backPath").val()});
+                extend(dataset, {button: $button});
 
                 console.info("dataset")
 

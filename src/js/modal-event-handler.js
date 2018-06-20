@@ -112,7 +112,7 @@ export default class ModalEventHandler {
             }
 
         });
-        const itemClickHandler = new ItemClickHandler(self.modal, self.defaults);
+        const itemClickHandler = new ItemClickHandler(self.modal, self.button, self.defaults);
         itemClickHandler.init();
 
     }
