@@ -94,7 +94,7 @@ export default class ModalEventHandler {
 
         // console.info("response.directoryInfo.currentPath", response.directoryInfo.currentPath);
 
-        if (backAddress && (response.directoryInfo.currentPath !== "/" || response.directoryInfo.currentPath !== "%2F" || response.directoryInfo.currentPath !== ""))
+        if (backAddress && !append && (response.directoryInfo.currentPath !== "/" || response.directoryInfo.currentPath !== "%2F" || response.directoryInfo.currentPath !== ""))
             $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemBack({
                 address: backAddress
             }));
