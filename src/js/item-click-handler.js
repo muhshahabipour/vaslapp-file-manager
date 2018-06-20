@@ -23,9 +23,14 @@ export default class ItemClickHandler {
         fileItems.forEach((item) => {
             item.addEventListener('click', (event) => {
                 // const dataset = event.target.dataset;
-                const dataset = event.currentTarget.dataset;
+                let dataset = event.currentTarget.dataset;
+
+                dataset.button = $button;
+
+                console.info(dataset.button);
 
                 eventFileItemClick.detail = dataset;
+
 
                 // Dispatch the event.
                 document.dispatchEvent(eventFileItemClick);
