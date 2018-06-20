@@ -20,6 +20,7 @@ export default class ModalEventHandler {
 
         document.addEventListener('fm.folder.item.select', function (e) {
             // console.info("HERE", e.detail);
+            console.info("HERE", e);
 
             self.getFilesList({
                 nextPagekey: e.detail.nextPagekey || '',
@@ -34,7 +35,7 @@ export default class ModalEventHandler {
     enableEvents = (defaults) => {
 
         $(self.modal).on('show.bs.modal', function (event) {
-            self.button = $(event.relatedTarget);
+            self.button = event.relatedTarget;
 
             self.getFilesList();
 
@@ -112,6 +113,7 @@ export default class ModalEventHandler {
             }
 
         });
+
         const itemClickHandler = new ItemClickHandler(self.modal, self.button, self.defaults);
         itemClickHandler.init();
 

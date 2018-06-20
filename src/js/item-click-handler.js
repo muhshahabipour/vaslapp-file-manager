@@ -15,7 +15,7 @@ export default class ItemClickHandler {
     init = () => {
 
         let $modal = $(self.modal);
-        let $button = $(self.button);
+        let button = self.button;
         
         var eventFileItemClick = new Event('fm.file.item.select');
 
@@ -25,12 +25,8 @@ export default class ItemClickHandler {
                 // const dataset = event.target.dataset;
                 let dataset = event.currentTarget.dataset;
 
-                dataset.button = $button;
-
-                console.info(dataset.button);
-
                 eventFileItemClick.detail = dataset;
-
+                eventFileItemClick.relatedTarget = button;
 
                 // Dispatch the event.
                 document.dispatchEvent(eventFileItemClick);
@@ -48,11 +44,10 @@ export default class ItemClickHandler {
                 let dataset = event.currentTarget.dataset;
 
                 extend(dataset, {backPath: $modal.find("#backPath").val()});
-                extend(dataset, {button: $button});
 
-                console.info("dataset", dataset)
 
                 eventFolderItemClick.detail = dataset
+                eventFileItemClick.relatedTarget = button;
 
                 // Dispatch the event.
                 document.dispatchEvent(eventFolderItemClick);
