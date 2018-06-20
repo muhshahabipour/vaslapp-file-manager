@@ -8,11 +8,12 @@ module.exports = () => {
             code: 200,
             msg: "دریافت اطلاعات با موفقیت",
             directoryInfo: {
+                currentPath: '/',
                 data: []
             }
-
         }
     }
+    
 
     data.images.directoryInfo.data.push({
         id: 0,
@@ -34,7 +35,6 @@ module.exports = () => {
             linkPath: ''
         })
     }
-
 
     return data
 }

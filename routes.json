@@ -3,5 +3,5 @@
     "/:resource/:id/show": "/:resource/:id",
     "/posts/:category": "/posts?category=:category",
     "/articles\\?id=:id": "/posts/:id",
-    "?name=:name": "/images/:name"
+    "?path=:name": "/images/directoryInfo/data?name=:name"
 }

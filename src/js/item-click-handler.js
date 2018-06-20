@@ -42,6 +42,8 @@ export default class ItemClickHandler {
 
                 extend(dataset, {backPath: $modal.find("#backPath").val()});
 
+                console.info("dataset")
+
                 eventFolderItemClick.detail = dataset
 
                 // Dispatch the event.

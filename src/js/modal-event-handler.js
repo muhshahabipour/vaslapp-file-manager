@@ -28,6 +28,7 @@ export default class ModalEventHandler {
 
         }, false);
 
+        return self;
     }
 
     enableEvents = (defaults) => {
@@ -35,9 +36,9 @@ export default class ModalEventHandler {
         $(self.modal).on('show.bs.modal', function (event) {
             self.button = $(event.relatedTarget);
 
-            self.enableLoadMore();
-
             self.getFilesList();
+
+            self.enableLoadMore();
         });
 
         $(self.modal).on('hide.bs.modal', function (event) {
@@ -59,7 +60,29 @@ export default class ModalEventHandler {
         });
     }
 
-    renderData = (response = {}, append = false, backAddress = "") => {
+    getFilesList = (data = {
+        nextPagekey: '',
+        path: '/'
+    }, append = false, backAddress = "/") => {
+        $.ajax({
+                url: self.defaults.ajax.url,
+                method: self.defaults.ajax.method,
+                data: extend(data, self.defaults.ajax.data),
+                headers: self.defaults.ajax.headers
+            })
+            .then(function (response) {
+                if (response.status === 1) {
+                    self.renderData(response, append, backAddress);
+                }
+
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
+
+    }
+
+    renderData = (response = {}, append = false, backAddress = "/") => {
 
         $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
         $(self.modal).find('#path').val(response.directoryInfo.currentPath);
@@ -68,12 +91,13 @@ export default class ModalEventHandler {
         if (!append)
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
+        // console.info("response.directoryInfo.currentPath", response.directoryInfo.currentPath);
+
         if (backAddress && (response.directoryInfo.currentPath !== "/" || response.directoryInfo.currentPath !== "%2F" || response.directoryInfo.currentPath !== ""))
             $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemBack({
                 address: backAddress
             }));
 
-        // setTimeout(function () {
         response.directoryInfo.data.forEach((item) => {
             if (item.isDirectory) {
                 $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
@@ -90,29 +114,6 @@ export default class ModalEventHandler {
         });
         const itemClickHandler = new ItemClickHandler(self.modal, self.defaults);
         itemClickHandler.init();
-        // }, 2000);
-    }
-
-
-    getFilesList = (data = {
-        nextPagekey: '',
-        path: '/'
-    }, append = false, backAddress = "") => {
-        $.ajax({
-                url: self.defaults.ajax.url,
-                method: self.defaults.ajax.method,
-                data: extend(data, self.defaults.ajax.data),
-                headers: self.defaults.ajax.headers
-            })
-            .then(function (response) {
-                if (response.status === 1) {
-                    self.renderData(response, append, backAddress);
-                }
-
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
 
     }
 
