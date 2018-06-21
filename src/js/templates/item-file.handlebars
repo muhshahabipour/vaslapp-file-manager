@@ -1,13 +1,16 @@
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-    <div class="fm-card fm-card-col" data-toggle="addFile" data-address="{{path}}" >
-        
-        <div class="fm-preview-box" data-type="insert_drive_file" >
-            {{#isImage}} <img src="{{path}}" data-is-directory="false" alt=""> {{/isImage}}
+    <div class="fm-card fm-card-col" data-toggle="addFile" data-address="{{path}}">
+
+        <div class="fm-preview-box" data-type="insert_drive_file">
+            {{#isImage}}
+            <img src="{{path}}" data-is-directory="false" alt=""> {{/isImage}}
         </div>
 
 
         <div class="fm-name-box content-title">
-            <span class="item-fm-file" data-is-directory="false">{{name}}</span>
+            <div class="flexbox flexbox-just-spacebetween flexbox-align-center">
+                <span class="item-fm-file truncate" data-is-directory="false">{{name}}</span>
+            </div>
         </div>
 
         {{!--
