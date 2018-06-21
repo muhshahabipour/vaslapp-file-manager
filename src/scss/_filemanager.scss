@@ -30,7 +30,7 @@
 
 .fm-name-box {
   flex: 2;
-  @include truncate();
+  // @include truncate();
   padding: 14px 0;
   direction: ltr;
 }
