@@ -16,7 +16,7 @@ export default class ItemClickHandler {
 
         let $modal = $(self.modal);
         let button = self.button;
-        
+
         var eventFileItemClick = new Event('fm.file.item.select');
 
         var fileItems = document.querySelectorAll("[data-toggle='addFile']");
@@ -43,7 +43,9 @@ export default class ItemClickHandler {
                 // const dataset = event.target.dataset;
                 let dataset = event.currentTarget.dataset;
 
-                extend(dataset, {backPath: $modal.find("#backPath").val()});
+                extend(dataset, {
+                    backPath: $modal.find("#backPath").val()
+                });
 
 
                 eventFolderItemClick.detail = dataset
@@ -59,13 +61,14 @@ export default class ItemClickHandler {
         var eventBackItemClick = new Event('fm.back.item.select');
 
         var backItem = document.querySelector("[data-toggle='backFolder']");
-        backItem.forEach((item) => {
-            item.addEventListener('click', (event) => {
+        if (backItem) {
+            backItem.addEventListener('click', (event) => {
                 // const dataset = event.target.dataset;
                 let dataset = event.currentTarget.dataset;
 
-                extend(dataset, {backPath: ''});
-
+                extend(dataset, {
+                    backPath: ''
+                });
 
                 eventBackItemClick.detail = dataset
                 eventBackItemClick.relatedTarget = button;
@@ -73,10 +76,8 @@ export default class ItemClickHandler {
                 // Dispatch the event.
                 document.dispatchEvent(eventBackItemClick);
 
-                // $modal.modal("hide");
-            })
-        })
-
+            });
+        }
 
     }
 

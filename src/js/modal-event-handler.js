@@ -31,7 +31,7 @@ export default class ModalEventHandler {
 
         document.addEventListener('fm.back.item.select', function (e) {
             // console.info("HERE", e.detail);
-            // console.info("HERE", e);
+            console.info("back", e);
 
             self.getFilesList({
                 nextPagekey: e.detail.nextPagekey || '',
