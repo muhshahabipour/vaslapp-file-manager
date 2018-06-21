@@ -47,10 +47,31 @@ export default class ItemClickHandler {
 
 
                 eventFolderItemClick.detail = dataset
-                eventFileItemClick.relatedTarget = button;
+                eventFolderItemClick.relatedTarget = button;
 
                 // Dispatch the event.
                 document.dispatchEvent(eventFolderItemClick);
+
+                // $modal.modal("hide");
+            })
+        })
+
+        var eventBackItemClick = new Event('fm.back.item.select');
+
+        var backItem = document.querySelector("[data-toggle='backFolder']");
+        backItem.forEach((item) => {
+            item.addEventListener('click', (event) => {
+                // const dataset = event.target.dataset;
+                let dataset = event.currentTarget.dataset;
+
+                extend(dataset, {backPath: ''});
+
+
+                eventBackItemClick.detail = dataset
+                eventBackItemClick.relatedTarget = button;
+
+                // Dispatch the event.
+                document.dispatchEvent(eventBackItemClick);
 
                 // $modal.modal("hide");
             })

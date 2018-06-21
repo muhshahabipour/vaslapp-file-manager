@@ -20,7 +20,18 @@ export default class ModalEventHandler {
 
         document.addEventListener('fm.folder.item.select', function (e) {
             // console.info("HERE", e.detail);
-            console.info("HERE", e);
+            // console.info("HERE", e);
+
+            self.getFilesList({
+                nextPagekey: e.detail.nextPagekey || '',
+                path: e.detail.address
+            }, false, e.detail.backPath);
+
+        }, false);
+
+        document.addEventListener('fm.back.item.select', function (e) {
+            // console.info("HERE", e.detail);
+            // console.info("HERE", e);
 
             self.getFilesList({
                 nextPagekey: e.detail.nextPagekey || '',
