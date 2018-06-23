@@ -12,6 +12,7 @@ var self;
 export default class ModalEventHandler {
     modal = null;
     button = null;
+    target = null;
     defaults = {}
 
     constructor(defaults) {

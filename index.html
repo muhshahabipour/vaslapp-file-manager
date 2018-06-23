@@ -26,7 +26,7 @@
         <div class="clearfix">&nbsp;</div>
 
 
-        <button class="btn btn-primary" data-toggle="modal" data-target="#fileManagerModal">انتخاب فایل</button>
+        <button class="btn btn-primary" id="dfsdfaf" data-toggle="modal" data-target="#fileManagerModal">انتخاب فایل</button>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -37,6 +37,7 @@
 
     <script>
         new FileManager({
+            target: '#dfsdfaf',
             ajax: {
                 url: 'http://localhost:3004/images',
                 method: "GET",
@@ -45,8 +46,9 @@
 
 
 
-
-        document.addEventListener('fm.file.item.select', function (e) {
+        let selector = document.querySelector('#dfsdfaf')
+        // document.addEventListener('fm.file.item.select', function (e) {
+        selector.addEventListener('fm.file.item.select', function (e) {
             // e.target matches elem
             console.info(e.detail);
             console.info(e);
@@ -54,8 +56,8 @@
 
 
         // document.addEventListener('fm.folder.item.select', function (e) {
-            // e.target matches elem
-            // console.info(e.detail);
+        // e.target matches elem
+        // console.info(e.detail);
         // }, false);
     </script>
 </body>

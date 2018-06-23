@@ -7,6 +7,7 @@ import {
 
 
 let defaults = {
+    target: '', // '#target'
     ajax: { // for get files
         url: 'path.php',
         method: "POST",

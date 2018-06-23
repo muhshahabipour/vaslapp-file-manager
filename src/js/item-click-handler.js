@@ -28,8 +28,13 @@ export default class ItemClickHandler {
                 eventFileItemClick.detail = dataset;
                 eventFileItemClick.relatedTarget = button;
 
+                let eventPlace = document;
+                if (self.defaults.target != "") {
+                    eventPlace = document.querySelector(self.defaults.target);
+                }
+
                 // Dispatch the event.
-                document.dispatchEvent(eventFileItemClick);
+                eventPlace.dispatchEvent(eventFileItemClick);
 
                 $modal.modal("hide");
             })
@@ -51,7 +56,8 @@ export default class ItemClickHandler {
                 eventFolderItemClick.detail = dataset
                 eventFolderItemClick.relatedTarget = button;
 
-                // Dispatch the event.
+
+                // Dispatch the event.                
                 document.dispatchEvent(eventFolderItemClick);
 
                 // $modal.modal("hide");
