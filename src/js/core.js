@@ -8,16 +8,15 @@ export default class Core extends ModalEventHandler{
     constructor(defaults) {
 
         // fot test 
-        const aaaaaaaaa = 1
+        // const aaaaaaaaa = 1
 
         var b = document.createElement('div')
-        console.log("FileManager")
-        b.innerHTML = modalFileManager({});
+        b.innerHTML = modalFileManager({id: defaults.modalId || 'fileManagerModal'});
         document.body.appendChild(b);
 
 
         let modalEventHandler = super(defaults);
-        modalEventHandler.setModal(document.querySelector('#fileManagerModal'));
+        modalEventHandler.setModal(document.querySelector('#' + (defaults.modalId || 'fileManagerModal')));
         modalEventHandler.enableEvents();
         
     }

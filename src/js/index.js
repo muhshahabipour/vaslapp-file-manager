@@ -8,6 +8,7 @@ import {
 
 let defaults = {
     target: '', // '#target'
+    modalId: '', // 'fileManagerModal'
     ajax: { // for get files
         url: 'path.php',
         method: "POST",
