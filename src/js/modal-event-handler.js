@@ -77,11 +77,17 @@ export default class ModalEventHandler {
         nextPagekey: '',
         path: '/'
     }, append = false, backAddress = "/") => {
+
+        var headers = {};
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        headers[header] = token;
+
         $.ajax({
                 url: self.defaults.ajax.url,
                 method: self.defaults.ajax.method,
                 data: extend(data, self.defaults.ajax.data),
-                headers: self.defaults.ajax.headers
+                headers: self.defaults.ajax.headers || headers
             })
             .then(function (response) {
                 if (response.status === 1) {
