@@ -8,7 +8,7 @@ export default class Core extends ModalEventHandler{
     constructor(defaults) {
 
         // fot test 
-        const aaaaaaaaa = 1;
+        const aaaaaaaaa = 2;
 
         var b = document.createElement('div')
         b.innerHTML = modalFileManager({id: defaults.modalId || 'fileManagerModal'});
