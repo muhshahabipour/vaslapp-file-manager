@@ -1,4 +1,5 @@
 import ItemClickHandler from './item-click-handler';
+import Uploader from './uploader';
 import extend from 'lodash/extend';
 
 
@@ -18,6 +19,8 @@ export default class ModalEventHandler {
     constructor(defaults) {
         this.defaults = defaults;
         self = this;
+
+        this.uploader = new Uploader(this.defaults.ajax.upload);
 
         document.addEventListener('fm.folder.item.select', function (e) {
             // console.info("HERE", e.detail);
@@ -49,6 +52,8 @@ export default class ModalEventHandler {
         $(self.modal).on('show.bs.modal', function (event) {
             self.button = event.relatedTarget;
 
+            self.uploader.initial();
+
             self.getFilesList();
 
             self.enableLoadMore();
@@ -57,6 +62,8 @@ export default class ModalEventHandler {
         $(self.modal).on('hide.bs.modal', function (event) {
             self.removeEvents();
             $(self.modal).find('.modal-body .fm-wrapper').html("");
+
+            self.uploader.distroy();
         });
     };
 
@@ -84,10 +91,10 @@ export default class ModalEventHandler {
         headers[header] = token;
 
         $.ajax({
-                url: self.defaults.ajax.url,
-                method: self.defaults.ajax.method,
-                data: extend(data, self.defaults.ajax.data),
-                headers: self.defaults.ajax.headers || headers
+                url: self.defaults.ajax.list.url,
+                method: self.defaults.ajax.list.method,
+                data: extend(data, self.defaults.ajax.list.data),
+                headers: self.defaults.ajax.list.headers || headers
             })
             .then(function (response) {
                 if (response.status === 1) {

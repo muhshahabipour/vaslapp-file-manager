@@ -10,10 +10,18 @@ let defaults = {
     target: '', // '#target'
     modalId: '', // 'fileManagerModal'
     ajax: { // for get files
-        url: 'path.php',
-        method: "POST",
-        data: {},
-        headers: {}
+        list: {
+            url: 'path.php',
+            method: "POST",
+            data: {},
+            headers: {}
+        },
+        upload: {
+            url: 'upload.php',
+            method: "POST",
+            data: {},
+            headers: {}
+        }
     }
 }
 
@@ -21,7 +29,7 @@ let defaults = {
 let elem = null;
 
 
-export class FileManager extends Core{
+export class FileManager extends Core {
 
     constructor(options = {}) {
         defaults = extend(defaults, options)

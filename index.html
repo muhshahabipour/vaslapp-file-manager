@@ -40,9 +40,16 @@
             target: '#dfsdfaf',
             modalId: 'dfsdfaf11',
             ajax: {
-                url: 'http://localhost:3004/images',
-                method: "GET",
-            }
+                list: {
+                    url: 'http://localhost:3004/images',
+                    method: "GET"
+                },
+                upload: {
+                    url: 'http://localhost:3005/upload',
+                    method: "POST"
+                }
+            },
+
         });
 
 
