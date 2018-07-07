@@ -1,8 +1,12 @@
+let self;
+
 export default class Uploader {
+
 
     constructor(ajax, modalClass) {
         this.ajax = ajax;
         this.modalClass = modalClass;
+        self = this;
     }
 
     initial = () => {
@@ -31,7 +35,7 @@ export default class Uploader {
                     })
                     .then(function (response) {
                         if (response.status === 1) {
-                            this.modalClass.getFilesList({
+                            self.modalClass.getFilesList({
                                 nextPagekey: '',
                                 path: '/'
                             }, false, "/")
