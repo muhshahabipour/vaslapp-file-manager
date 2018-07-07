@@ -33,8 +33,11 @@ export default class Uploader {
                     })
                     .then(function (response) {
                         if (response.status === 1) {
-                            ModalEventHandler.getFilesList({nextPagekey: '', path: '/'}, false, "/")
-                        }else{
+                            ModalEventHandler.getFilesList({
+                                nextPagekey: '',
+                                path: '/'
+                            }, false, "/")
+                        } else {
                             console.error(response.msg);
                         }
                     })
@@ -46,7 +49,7 @@ export default class Uploader {
     }
 
     setCurrentPath = (path) => {
-        let filePath = document.getElementById('vaslapp-file-path');
+        let filePath = document.querySelector('#vaslapp-file-path');
         filePath.value = path;
     }
 
