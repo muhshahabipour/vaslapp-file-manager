@@ -1,4 +1,3 @@
-
 export default class Uploader {
 
     constructor(ajax, modalClass) {
@@ -54,7 +53,7 @@ export default class Uploader {
 
     distroy = () => {
         let fileSelector = document.querySelector('#vaslapp-file-selector');
-        fileSelector.removeEventListener("change");
+        fileSelector.removeEventListener("change", () => {});
     }
 
 }
