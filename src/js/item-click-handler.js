@@ -53,6 +53,8 @@ export default class ItemClickHandler {
                 });
 
 
+                self.uploader.setCurrentPath(dataset.address)
+
                 eventFolderItemClick.detail = dataset
                 eventFolderItemClick.relatedTarget = button;
 

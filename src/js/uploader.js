@@ -1,3 +1,5 @@
+import ModalEventHandler from './modal-event-handler';
+
 export default class Uploader {
 
     constructor(ajax) {
@@ -31,7 +33,9 @@ export default class Uploader {
                     })
                     .then(function (response) {
                         if (response.status === 1) {
-                            self.renderData(response, append, backAddress);
+                            ModalEventHandler.getFilesList({nextPagekey: '', path: '/'}, false, "/")
+                        }else{
+                            console.error(response.msg);
                         }
                     })
                     .catch(function (error) {
@@ -39,6 +43,11 @@ export default class Uploader {
                     });
             }
         });
+    }
+
+    setCurrentPath = (path) => {
+        let filePath = document.getElementById('vaslapp-file-path');
+        filePath.value = path;
     }
 
     distroy = () => {
