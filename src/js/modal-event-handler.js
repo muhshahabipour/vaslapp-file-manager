@@ -20,7 +20,7 @@ export default class ModalEventHandler {
         this.defaults = defaults;
         self = this;
 
-        this.uploader = new Uploader(this.defaults.ajax.upload);
+        this.uploader = new Uploader(this.defaults.ajax.upload, self);
 
         document.addEventListener('fm.folder.item.select', function (e) {
             // console.info("HERE", e.detail);

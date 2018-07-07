@@ -1,15 +1,14 @@
-import ModalEventHandler from './modal-event-handler';
 
 export default class Uploader {
 
-    constructor(ajax) {
+    constructor(ajax, modalClass) {
         this.ajax = ajax;
+        this.modalClass = modalClass;
     }
 
     initial = () => {
-        const fileSelector = document.querySelector('#vaslapp-file-selector');
+        let fileSelector = document.querySelector('#vaslapp-file-selector');
         fileSelector.addEventListener("change", (event) => {
-            // console.log("event.currentTarget",fileSelector.files.length);
 
             // console.log("this.ajax", this.ajax);
 
@@ -33,7 +32,7 @@ export default class Uploader {
                     })
                     .then(function (response) {
                         if (response.status === 1) {
-                            ModalEventHandler.getFilesList({
+                            this.modalClass.getFilesList({
                                 nextPagekey: '',
                                 path: '/'
                             }, false, "/")
@@ -54,6 +53,7 @@ export default class Uploader {
     }
 
     distroy = () => {
+        let fileSelector = document.querySelector('#vaslapp-file-selector');
         fileSelector.removeEventListener("change");
     }
 
