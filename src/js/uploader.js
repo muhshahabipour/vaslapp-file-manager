@@ -3,14 +3,15 @@ let self;
 export default class Uploader {
 
 
-    constructor(ajax, modalClass) {
+    constructor(ajax, id, modalClass) {
         this.ajax = ajax;
+        this.id = id;
         this.modalClass = modalClass;
         self = this;
     }
 
     initial = () => {
-        let fileSelector = document.querySelector('#vaslapp-file-selector');
+        let fileSelector = document.querySelector('#' + this.id + '-vaslapp-file-selector');
         fileSelector.addEventListener("change", (event) => {
 
             // console.log("this.ajax", this.ajax);
@@ -21,12 +22,12 @@ export default class Uploader {
                 const header = $("meta[name='_csrf_header']").attr("content");
                 headers[header] = token;
 
-                const form = $('#form-vaslapp-file-uploader');
+                const form = $('#' + id + '-form-vaslapp-file-uploader');
                 const formData = new FormData(form[0]);
 
                 let currentPath, previousPath;
                 try {
-                    currentPath = $('#vaslapp-file-path').val();
+                    currentPath = $('#' + id + '-vaslapp-file-path').val();
                     if (currentPath.endsWith("/")) {
                         let currentPathNormal = currentPath.substr(0, (currentPath.length - 1));
                         previousPath = currentPathNormal.substr(0, currentPathNormal.lastIndexOf("/"))
@@ -62,12 +63,12 @@ export default class Uploader {
     }
 
     setCurrentPath = (path) => {
-        let filePath = document.querySelector('#vaslapp-file-path');
+        let filePath = document.querySelector('#' + this.id + '-vaslapp-file-path');
         filePath.value = path;
     }
 
     distroy = () => {
-        let fileSelector = document.querySelector('#vaslapp-file-selector');
+        let fileSelector = document.querySelector('#' + this.id + '-vaslapp-file-selector');
         fileSelector.removeEventListener("change", () => {});
     }
 
