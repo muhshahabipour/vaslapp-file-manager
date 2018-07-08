@@ -24,6 +24,17 @@ export default class Uploader {
                 const form = $('#form-vaslapp-file-uploader');
                 const formData = new FormData(form[0]);
 
+                let currentPath, previousPath;
+                try {
+                    currentPath = $('#vaslapp-file-path').val();
+                    if (currentPath.endsWith("/")) {
+                        let currentPathNormal = currentPath.substr(0, (currentPath.length - 1));
+                        previousPath = currentPathNormal.substr(0, currentPathNormal.lastIndexOf("/"))
+                    } else {
+                        previousPath = currentPath.substr(0, currentPath.lastIndexOf("/"))
+                    };
+                } catch (err) {}
+
                 $.ajax({
                         url: this.ajax.url,
                         method: "POST",
@@ -36,9 +47,9 @@ export default class Uploader {
                     .then(function (response) {
                         if (response.status === 1) {
                             self.modalClass.getFilesList({
-                                nextPagekey: '',
-                                path: '/'
-                            }, false, "/")
+                                nextPagekey: "",
+                                path: currentPath || "/"
+                            }, false, previousPath || "/")
                         } else {
                             console.error(response.msg);
                         }
