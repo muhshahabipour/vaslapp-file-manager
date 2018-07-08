@@ -53,8 +53,8 @@ export default class ItemClickHandler {
                     backPath: $modal.find("#backPath").val()
                 });
 
-
-                self.uploader.setCurrentPath(dataset.address)
+                console.log(dataset);
+                self.uploader.setCurrentPath(dataset.address);
 
                 eventFolderItemClick.detail = dataset
                 eventFolderItemClick.relatedTarget = button;
