@@ -1,6 +1,7 @@
 import ItemClickHandler from './item-click-handler';
 import Uploader from './uploader';
 import extend from 'lodash/extend';
+import has from 'lodash/has';
 
 
 import fileManagerItemFile from "./templates/item-file.handlebars";
@@ -124,20 +125,22 @@ export default class ModalEventHandler {
                 address: backAddress
             }));
 
-        response.directoryInfo.data.forEach((item) => {
-            if (item.isDirectory) {
-                $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
-                    name: item.name
-                }));
-            } else {
-                $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
-                    name: item.name,
-                    path: item.linkHost + item.linkPath,
-                    isImage: true
-                }));
-            }
+        if (has(response, "directoryInfo") && has(response.directoryInfo, "data")) {
+            response.directoryInfo.data.forEach((item) => {
+                if (item.isDirectory) {
+                    $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
+                        name: item.name
+                    }));
+                } else {
+                    $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
+                        name: item.name,
+                        path: item.linkHost + item.linkPath,
+                        isImage: true
+                    }));
+                }
 
-        });
+            });
+        }
 
         const itemClickHandler = new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
         itemClickHandler.init();
