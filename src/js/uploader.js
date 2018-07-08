@@ -22,12 +22,12 @@ export default class Uploader {
                 const header = $("meta[name='_csrf_header']").attr("content");
                 headers[header] = token;
 
-                const form = $('#' + id + '-form-vaslapp-file-uploader');
+                const form = $('#' + this.id + '-form-vaslapp-file-uploader');
                 const formData = new FormData(form[0]);
 
                 let currentPath, previousPath;
                 try {
-                    currentPath = $('#' + id + '-vaslapp-file-path').val();
+                    currentPath = $('#' + this.id + '-vaslapp-file-path').val();
                     if (currentPath.endsWith("/")) {
                         let currentPathNormal = currentPath.substr(0, (currentPath.length - 1));
                         previousPath = currentPathNormal.substr(0, currentPathNormal.lastIndexOf("/"))
