@@ -5,10 +5,11 @@ var self;
 
 export default class ItemClickHandler {
 
-    constructor(modal, button, defaults) {
+    constructor(modal, button, defaults, uploader) {
         this.modal = modal;
         this.button = button;
         this.defaults = defaults;
+        this.uploader = uploader;
         self = this;
     }
 
