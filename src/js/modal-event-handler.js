@@ -115,9 +115,9 @@ export default class ModalEventHandler {
         if (!append)
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
-        console.info("response.directoryInfo.currentPath", response.directoryInfo.currentPath);
+        // console.info("response.directoryInfo.currentPath", response.directoryInfo.currentPath);
 
-        if (backAddress && !append && (response.directoryInfo.currentPath !== "/" || response.directoryInfo.currentPath !== "%2F" || response.directoryInfo.currentPath !== ""))
+        if (backAddress && !append && (response.directoryInfo.currentPath !== "/" && response.directoryInfo.currentPath !== "%2F" && response.directoryInfo.currentPath !== ""))
             $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemBack({
                 address: backAddress
             }));
