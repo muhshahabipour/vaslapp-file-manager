@@ -1,6 +1,6 @@
 {
   "name": "vaslapp-file-manager",
-  "version": "1.0.41",
+  "version": "1.0.42",
   "description": "show file and directory in modal (custom)",
   "main": "index.js",
   "scripts": {
