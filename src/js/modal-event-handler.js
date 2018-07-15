@@ -24,9 +24,6 @@ export default class ModalEventHandler {
         this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, self);
 
         document.addEventListener('fm.folder.item.select', function (e) {
-            // console.info("HERE", e.detail);
-            // console.info("HERE", e);
-
             self.getFilesList({
                 nextPagekey: e.detail.nextPagekey || '',
                 path: e.detail.address
@@ -118,7 +115,7 @@ export default class ModalEventHandler {
         if (!append)
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
-        // console.info("response.directoryInfo.currentPath", response.directoryInfo.currentPath);
+        console.info("response.directoryInfo.currentPath", response.directoryInfo.currentPath);
 
         if (backAddress && !append && (response.directoryInfo.currentPath !== "/" || response.directoryInfo.currentPath !== "%2F" || response.directoryInfo.currentPath !== ""))
             $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemBack({
