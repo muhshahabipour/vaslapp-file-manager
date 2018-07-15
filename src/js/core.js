@@ -3,7 +3,7 @@ import ModalEventHandler from './modal-event-handler';
 import modalFileManager from "./templates/modal-filemanager.handlebars";
 
 
-export default class Core extends ModalEventHandler{
+export default class Core{
     
     constructor(defaults) {
 
@@ -15,7 +15,7 @@ export default class Core extends ModalEventHandler{
         document.body.appendChild(b);
 
 
-        let modalEventHandler = super(defaults);
+        let modalEventHandler = new ModalEventHandler(defaults);
         modalEventHandler.setModal(document.querySelector('#' + (defaults.modalId || 'fileManagerModal')));
         modalEventHandler.enableEvents();
         

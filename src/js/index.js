@@ -29,11 +29,11 @@ let defaults = {
 let elem = null;
 
 
-export class FileManager extends Core {
+export class FileManager{
 
     constructor(options = {}) {
         defaults = extend(defaults, options)
-        super(defaults);
+        let core = new Core(defaults);
     }
 
 }
