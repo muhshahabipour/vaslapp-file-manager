@@ -76,7 +76,7 @@ export default class ItemClickHandler {
                 let dataset = event.currentTarget.dataset;
 
                 extend(dataset, {
-                    backPath: ''
+                    backPath: $modal.find("#backPath").val() || '/'
                 });
 
                 eventBackItemClick.detail = dataset
