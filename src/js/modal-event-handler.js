@@ -12,42 +12,47 @@ import fileManagerItemBack from "./templates/item-back.handlebars";
 var self;
 
 export default class ModalEventHandler {
-    modal = null;
-    button = null;
-    target = null;
-    defaults = {}
 
     constructor(defaults) {
-        this.defaults = defaults;
+        
+        this.defaults = defaults || {};
+        this.itemInModal = 0;
+        this.modal = null;
+        this.button = null;
+        this.target = null;
+
+        document.addEventListener('fm.folder.item.select', function (event) {
+            console.info("this-folder", this);
+
+            this.getFilesList({
+                nextPagekey: event.detail.nextPagekey || '',
+                path: event.detail.address
+            }, false, event.detail.backPath);
+
+        }, false);
+
+        document.addEventListener('fm.back.item.select', function (event) {
+            console.info("this-back", this);
+            console.info("back", event);
+
+            this.getFilesList({
+                nextPagekey: event.detail.nextPagekey || '',
+                path: event.detail.address
+            }, false, event.detail.backPath);
+
+        }, false);
+
+        this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, this);
+
         self = this;
-
-        this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, self);
-
-        document.addEventListener('fm.folder.item.select', function (e) {
-            self.getFilesList({
-                nextPagekey: e.detail.nextPagekey || '',
-                path: e.detail.address
-            }, false, e.detail.backPath);
-
-        }, false);
-
-        document.addEventListener('fm.back.item.select', function (e) {
-            // console.info("HERE", e.detail);
-            console.info("back", e);
-
-            self.getFilesList({
-                nextPagekey: e.detail.nextPagekey || '',
-                path: e.detail.address
-            }, false, e.detail.backPath);
-
-        }, false);
 
         return self;
     }
 
-    enableEvents = (defaults) => {
+    enableEvents = () => {
 
         $(self.modal).on('show.bs.modal', function (event) {
+
             self.button = event.relatedTarget;
 
             self.uploader.initial();
@@ -58,7 +63,9 @@ export default class ModalEventHandler {
         });
 
         $(self.modal).on('hide.bs.modal', function (event) {
+            
             self.removeEvents();
+            
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
             self.uploader.distroy();
@@ -159,6 +166,7 @@ export default class ModalEventHandler {
 
 
     getModal = () => self.modal;
+    
     setModal = (modal) => {
         self.modal = modal;
     };
