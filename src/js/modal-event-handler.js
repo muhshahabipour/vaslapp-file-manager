@@ -21,26 +21,6 @@ export default class ModalEventHandler {
         this.button = null;
         this.target = null;
 
-        document.addEventListener('fm.folder.item.select', function (event) {
-            console.info("this-folder", this);
-
-            this.getFilesList({
-                nextPagekey: event.detail.nextPagekey || '',
-                path: event.detail.address
-            }, false, event.detail.backPath);
-
-        }, false);
-
-        document.addEventListener('fm.back.item.select', function (event) {
-            console.info("this-back", this);
-            console.info("back", event);
-
-            this.getFilesList({
-                nextPagekey: event.detail.nextPagekey || '',
-                path: event.detail.address
-            }, false, event.detail.backPath);
-
-        }, false);
 
         this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, this);
 
@@ -66,6 +46,27 @@ export default class ModalEventHandler {
             self.uploader.distroy();
         });
 
+
+        document.addEventListener('fm.folder.item.select', function (event) {
+            console.info("this-folder", self);
+
+            self.getFilesList({
+                nextPagekey: event.detail.nextPagekey || '',
+                path: event.detail.address
+            }, false, event.detail.backPath);
+
+        }, false);
+
+        document.addEventListener('fm.back.item.select', function (event) {
+            console.info("this-back", self);
+            console.info("back", event);
+
+            self.getFilesList({
+                nextPagekey: event.detail.nextPagekey || '',
+                path: event.detail.address
+            }, false, event.detail.backPath);
+
+        }, false);
 
         return self;
     };
