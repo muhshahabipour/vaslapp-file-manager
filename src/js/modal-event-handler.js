@@ -21,10 +21,12 @@ export default class ModalEventHandler {
         this.button = null;
         this.target = null;
 
-        document.addEventListener('fm.folder.item.select', function (event) {
-            console.info("this-folder", this);
+        self = this;
 
-            this.getFilesList({
+        document.addEventListener('fm.folder.item.select', function (event) {
+            console.info("this-folder", self);
+
+            self.getFilesList({
                 nextPagekey: event.detail.nextPagekey || '',
                 path: event.detail.address
             }, false, event.detail.backPath);
@@ -32,10 +34,10 @@ export default class ModalEventHandler {
         }, false);
 
         document.addEventListener('fm.back.item.select', function (event) {
-            console.info("this-back", this);
+            console.info("this-back", self);
             console.info("back", event);
 
-            this.getFilesList({
+            self.getFilesList({
                 nextPagekey: event.detail.nextPagekey || '',
                 path: event.detail.address
             }, false, event.detail.backPath);
@@ -44,12 +46,9 @@ export default class ModalEventHandler {
 
         this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, this);
 
+        this.model = document.querySelector('#' + (this.defaults.modalId || 'fileManagerModal'));
+
         self = this;
-
-        return self;
-    }
-
-    enableEvents = () => {
 
         $(self.modal).on('show.bs.modal', function (event) {
 
@@ -64,26 +63,14 @@ export default class ModalEventHandler {
 
         $(self.modal).on('hide.bs.modal', function (event) {
             
-            self.removeEvents();
-            
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
             self.uploader.distroy();
         });
+
+
+        return self;
     };
-
-
-    removeEvents = () => {
-        var fileItems = document.querySelectorAll("[data-toggle='addFile']");
-        fileItems.forEach((item) => {
-            $(item).off('click');
-        });
-
-        var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
-        folderItems.forEach((item) => {
-            $(item).off('click');
-        });
-    }
 
     getFilesList = (data = {
         nextPagekey: '',
@@ -111,7 +98,7 @@ export default class ModalEventHandler {
                 console.error(error);
             });
 
-    }
+    };
 
     renderData = (response = {}, append = false, backAddress = "/") => {
 
@@ -142,14 +129,12 @@ export default class ModalEventHandler {
                         isImage: true
                     }));
                 }
-
             });
         }
 
-        const itemClickHandler = new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
-        itemClickHandler.init();
+        new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
 
-    }
+    };
 
     enableLoadMore = () => {
         $(self.modal).find('.modal-body').off('scroll');
@@ -162,12 +147,7 @@ export default class ModalEventHandler {
             }
         });
 
-    }
-
+    };
 
     getModal = () => self.modal;
-    
-    setModal = (modal) => {
-        self.modal = modal;
-    };
 }

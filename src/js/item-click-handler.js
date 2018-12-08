@@ -1,22 +1,10 @@
 import extend from 'lodash/extend';
 
 
-var self;
-
 export default class ItemClickHandler {
 
     constructor(modal, button, defaults, uploader) {
-        this.modal = modal;
-        this.button = button;
-        this.defaults = defaults;
-        this.uploader = uploader;
-        self = this;
-    }
-
-    init = () => {
-
-        let $modal = $(self.modal);
-        let button = self.button;
+        let $modal = $(modal);
 
         var eventFileItemClick = new Event('fm.file.item.select');
 
@@ -30,8 +18,8 @@ export default class ItemClickHandler {
                 eventFileItemClick.relatedTarget = button;
 
                 let eventPlace = document;
-                if (self.defaults.target != "") {
-                    eventPlace = document.querySelector(self.defaults.target);
+                if (defaults.target != "") {
+                    eventPlace = document.querySelector(defaults.target);
                 }
 
                 // Dispatch the event.
@@ -54,7 +42,7 @@ export default class ItemClickHandler {
                 });
 
                 console.log(dataset);
-                self.uploader.setCurrentPath(dataset.address);
+                uploader.setCurrentPath(dataset.address);
 
                 eventFolderItemClick.detail = dataset
                 eventFolderItemClick.relatedTarget = button;
@@ -87,9 +75,5 @@ export default class ItemClickHandler {
 
             });
         }
-
     }
-
-
-
 }
