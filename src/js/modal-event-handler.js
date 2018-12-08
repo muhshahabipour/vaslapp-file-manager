@@ -9,7 +9,7 @@ import fileManagerItemFolder from "./templates/item-folder.handlebars";
 import fileManagerItemBack from "./templates/item-back.handlebars";
 
 
-var self;
+
 
 export default class ModalEventHandler {
 
@@ -21,12 +21,11 @@ export default class ModalEventHandler {
         this.button = null;
         this.target = null;
 
-
         this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, this);
 
         this.model = document.querySelector('#' + (this.defaults.modalId || 'fileManagerModal'));
 
-        self = this;
+        var self = this;
 
         $(self.modal).on('show.bs.modal', function (event) {
 
@@ -76,6 +75,9 @@ export default class ModalEventHandler {
         path: '/'
     }, append = false, backAddress = "/") => {
 
+        var self = this;
+
+
         var headers = {};
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
@@ -100,6 +102,7 @@ export default class ModalEventHandler {
     };
 
     enableEvents = () => {
+        var self = this;
 
         $(self.modal).on('show.bs.modal', function (event) {
 
@@ -135,6 +138,7 @@ export default class ModalEventHandler {
     }
 
     renderData = (response = {}, append = false, backAddress = "/") => {
+        var self = this;
 
         $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
         $(self.modal).find('#path').val(response.directoryInfo.currentPath);
@@ -171,6 +175,8 @@ export default class ModalEventHandler {
     };
 
     enableLoadMore = () => {
+        var self = this;
+
         $(self.modal).find('.modal-body').off('scroll');
         $(self.modal).find('.modal-body').scroll(function () {
             if ($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16)) {
@@ -183,9 +189,9 @@ export default class ModalEventHandler {
 
     };
 
-    getModal = () => self.modal;
+    getModal = () => this.modal;
 
     setModal = (modal) => {
-        self.modal = modal;
+        this.modal = modal;
     };
 }
