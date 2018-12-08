@@ -15,7 +15,9 @@ export default class Core{
         document.body.appendChild(b);
 
 
-        new ModalEventHandler(defaults);
+        let modalEventHandler = new ModalEventHandler(defaults);
+        modalEventHandler.setModal(document.querySelector('#' + (defaults.modalId || 'fileManagerModal')));
+        modalEventHandler.enableEvents();
     }
 
 

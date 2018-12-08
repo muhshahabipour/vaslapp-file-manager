@@ -98,6 +98,41 @@ export default class ModalEventHandler {
 
     };
 
+    enableEvents = () => {
+
+        $(self.modal).on('show.bs.modal', function (event) {
+
+            self.button = event.relatedTarget;
+
+            self.uploader.initial();
+
+            self.getFilesList();
+
+            self.enableLoadMore();
+        });
+
+        $(self.modal).on('hide.bs.modal', function (event) {
+            
+            self.removeEvents();
+            
+            $(self.modal).find('.modal-body .fm-wrapper').html("");
+
+            self.uploader.distroy();
+        });
+    };
+
+    removeEvents = () => {
+        var fileItems = document.querySelectorAll("[data-toggle='addFile']");
+        fileItems.forEach((item) => {
+            $(item).off('click');
+        });
+
+        var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
+        folderItems.forEach((item) => {
+            $(item).off('click');
+        });
+    }
+
     renderData = (response = {}, append = false, backAddress = "/") => {
 
         $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
@@ -148,4 +183,8 @@ export default class ModalEventHandler {
     };
 
     getModal = () => self.modal;
+
+    setModal = (modal) => {
+        self.modal = modal;
+    };
 }
