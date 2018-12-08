@@ -21,12 +21,10 @@ export default class ModalEventHandler {
         this.button = null;
         this.target = null;
 
-        self = this;
-
         document.addEventListener('fm.folder.item.select', function (event) {
-            console.info("this-folder", self);
+            console.info("this-folder", this);
 
-            self.getFilesList({
+            this.getFilesList({
                 nextPagekey: event.detail.nextPagekey || '',
                 path: event.detail.address
             }, false, event.detail.backPath);
@@ -34,10 +32,10 @@ export default class ModalEventHandler {
         }, false);
 
         document.addEventListener('fm.back.item.select', function (event) {
-            console.info("this-back", self);
+            console.info("this-back", this);
             console.info("back", event);
 
-            self.getFilesList({
+            this.getFilesList({
                 nextPagekey: event.detail.nextPagekey || '',
                 path: event.detail.address
             }, false, event.detail.backPath);
