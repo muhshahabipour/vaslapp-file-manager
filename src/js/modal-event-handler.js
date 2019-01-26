@@ -1,4 +1,5 @@
 import ItemClickHandler from './item-click-handler';
+import LinkSubmitHandler from './link-submit-handler';
 import Uploader from './uploader';
 import extend from 'lodash/extend';
 import has from 'lodash/has';
@@ -171,6 +172,7 @@ export default class ModalEventHandler {
         }
 
         new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
+        new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
 
     };
 

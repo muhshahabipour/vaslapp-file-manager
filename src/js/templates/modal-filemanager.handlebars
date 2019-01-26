@@ -18,11 +18,20 @@
             </div>
 
             <div class="modal-footer">
+                <div class="form-group form ">
+                    <label for="linkSublit">آدرس فایل</label>
+                    <div class="flexbox">
+                        <input type="text" id="linkSublit" class="form-control form-entry">
+                        <button type="button" id="linkSublitBtn" class="btn btn-primary mr-2">ثبت</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
                 <div class="row">
                     <div class="col-xs-12">
                         <label type="button" class="btn btn-primary" for="{{id}}-vaslapp-file-selector">آپلود فایل</label>
                         <button type="button" class="btn btn-default" data-dismiss="modal">خروج</button>
-                        
+
                         <form class="hidden" id="{{id}}-form-vaslapp-file-uploader">
                             <input type="file" name="file[]" id="{{id}}-vaslapp-file-selector" multiple>
                             <input type="text" name="path" id="{{id}}-vaslapp-file-path" value="/">
