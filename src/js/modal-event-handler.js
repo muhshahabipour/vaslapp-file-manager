@@ -15,7 +15,7 @@ import fileManagerItemBack from "./templates/item-back.handlebars";
 export default class ModalEventHandler {
 
     constructor(defaults) {
-        
+
         this.defaults = defaults || {};
         this.itemInModal = 0;
         this.modal = null;
@@ -40,7 +40,7 @@ export default class ModalEventHandler {
         });
 
         $(self.modal).on('hide.bs.modal', function (event) {
-            
+
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
             self.uploader.distroy();
@@ -85,12 +85,13 @@ export default class ModalEventHandler {
         headers[header] = token;
 
         $.ajax({
-                url: self.defaults.ajax.list.url,
-                method: self.defaults.ajax.list.method,
-                data: extend(data, self.defaults.ajax.list.data),
-                headers: self.defaults.ajax.list.headers || headers
-            })
+            url: self.defaults.ajax.list.url,
+            method: self.defaults.ajax.list.method,
+            data: extend(data, self.defaults.ajax.list.data),
+            headers: self.defaults.ajax.list.headers || headers
+        })
             .then(function (response) {
+                console.log(response.directoryInfo);
                 if (response.status === 1) {
                     self.renderData(response, append, backAddress);
                 }
@@ -117,9 +118,9 @@ export default class ModalEventHandler {
         });
 
         $(self.modal).on('hide.bs.modal', function (event) {
-            
+
             self.removeEvents();
-            
+
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
             self.uploader.distroy();
@@ -140,8 +141,14 @@ export default class ModalEventHandler {
 
     renderData = (response = {}, append = false, backAddress = "/") => {
         var self = this;
+        if (response.directoryInfo.nextPageKey === "") {
+            console.log('STOP'+ response.directoryInfo.nextPageKey);
+            $(self.modal).find('#nextPagekey').val(0);
+        } else {
+            console.log('RUN'+ response.directoryInfo.nextPageKey);
+            $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
+        }
 
-        $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
         $(self.modal).find('#path').val(response.directoryInfo.currentPath);
         $(self.modal).find('#backPath').val(backAddress);
 
@@ -183,6 +190,7 @@ export default class ModalEventHandler {
         $(self.modal).find('.modal-body').scroll(function () {
             if ($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16)) {
                 self.getFilesList({
+
                     nextPagekey: $(self.modal).find('#nextPagekey').val(),
                     path: $(self.modal).find('#path').val()
                 }, true)
