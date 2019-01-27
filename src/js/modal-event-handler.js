@@ -83,23 +83,25 @@ export default class ModalEventHandler {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         headers[header] = token;
+if($(self.modal).find('#nextPagekey').val() !== 0){
+    console.log("INPUT " + $(self.modal).find('#nextPagekey').val())
+    $.ajax({
+        url: self.defaults.ajax.list.url,
+        method: self.defaults.ajax.list.method,
+        data: extend(data, self.defaults.ajax.list.data),
+        headers: self.defaults.ajax.list.headers || headers
+    })
+        .then(function (response) {
+            console.log(response.directoryInfo);
+            if (response.status === 1) {
+                self.renderData(response, append, backAddress);
+            }
 
-        $.ajax({
-            url: self.defaults.ajax.list.url,
-            method: self.defaults.ajax.list.method,
-            data: extend(data, self.defaults.ajax.list.data),
-            headers: self.defaults.ajax.list.headers || headers
         })
-            .then(function (response) {
-                console.log(response.directoryInfo);
-                if (response.status === 1) {
-                    self.renderData(response, append, backAddress);
-                }
-
-            })
-            .catch(function (error) {
-                console.error(error);
-            });
+        .catch(function (error) {
+            console.error(error);
+        });
+}
 
     };
 
