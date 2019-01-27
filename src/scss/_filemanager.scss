@@ -66,6 +66,12 @@
     transform: translateX(-50%) translateY(-50%);
   }
 
+  &[data-type="folder"]{
+    &::before{
+      color: #E49002;
+    }
+  }
+
   img {
     position: relative;
     z-index: 100;
