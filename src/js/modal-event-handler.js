@@ -102,6 +102,7 @@ export default class ModalEventHandler {
 
                     console.log(response.directoryInfo);
                     if (response.status === 1) {
+                        console.log("loadMore ",!has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                         if (!has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                             self.loadMore = false;
                         console.log("do render data")
