@@ -93,7 +93,8 @@ export default class ModalEventHandler {
             })
                 .then(function (response) {
                     console.log(response.directoryInfo);
-                    if (response.status === 1) {
+                    if (response.status === 1 && response.directoryInfo.nextPageKey !== $(self.modal).find('#nextPagekey').val()) {
+                        console.log("do render data")
                         self.renderData(response, append, backAddress);
                     }
 
