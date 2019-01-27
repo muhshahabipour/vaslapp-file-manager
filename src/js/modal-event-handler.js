@@ -143,7 +143,7 @@ if($(self.modal).find('#nextPagekey').val() !== 0){
 
     renderData = (response = {}, append = false, backAddress = "/") => {
         var self = this;
-        if (response.directoryInfo.nextPageKey === "") {
+        if (response.directoryInfo.nextPageKey === null) {
             console.log('STOP'+ response.directoryInfo.nextPageKey);
             $(self.modal).find('#nextPagekey').val(0);
         } else {
@@ -189,7 +189,8 @@ if($(self.modal).find('#nextPagekey').val() !== 0){
         var self = this;
 
         $(self.modal).find('.modal-body').off('scroll');
-        $(self.modal).find('.modal-body').scroll(function () {
+        $(self.modal).find('.modal-body').scroll(function (event) {
+          event.preventDefault();
             if ($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16)) {
                 self.getFilesList({
 
