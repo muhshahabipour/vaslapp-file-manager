@@ -22,6 +22,7 @@ export default class ModalEventHandler {
         this.button = null;
         this.target = null;
         this.ajaxStart = false;
+        this.loadMore = true;
 
         this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, this);
 
@@ -50,7 +51,7 @@ export default class ModalEventHandler {
 
         document.addEventListener('fm.folder.item.select', function (event) {
             console.info("this-folder", self);
-
+            self.loadMore = true;
             self.getFilesList({
                 nextPagekey: event.detail.nextPagekey || '',
                 path: event.detail.address
@@ -61,7 +62,7 @@ export default class ModalEventHandler {
         document.addEventListener('fm.back.item.select', function (event) {
             console.info("this-back", self);
             console.info("back", event);
-
+            self.loadMore = true;
             self.getFilesList({
                 nextPagekey: event.detail.nextPagekey || '',
                 path: event.detail.address
@@ -70,6 +71,7 @@ export default class ModalEventHandler {
         }, false);
 
         return self;
+        
     };
 
     getFilesList = (data = {
@@ -84,7 +86,7 @@ export default class ModalEventHandler {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         headers[header] = token;
-        if ($(self.modal).find('#nextPagekey').val() !== 0) {
+        if (self.loadMore) {
             console.log("INPUT " + $(self.modal).find('#nextPagekey').val())
             self.ajaxStart = true;
             console.log("ajax start,", self.ajaxStart)
@@ -99,7 +101,9 @@ export default class ModalEventHandler {
                     self.ajaxStart = false;
 
                     console.log(response.directoryInfo);
-                    if (response.status === 1 && response.directoryInfo.nextPageKey !== $(self.modal).find('#nextPagekey').val()) {
+                    if (response.status === 1 ){
+                        if(response.directoryInfo.nextPageKey !== $(self.modal).find('#nextPagekey').val()) 
+                        self.loadMore = false;
                         console.log("do render data")
                         self.renderData(response, append, backAddress);
                     }
