@@ -83,25 +83,25 @@ export default class ModalEventHandler {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         headers[header] = token;
-if($(self.modal).find('#nextPagekey').val() !== 0){
-    console.log("INPUT " + $(self.modal).find('#nextPagekey').val())
-    $.ajax({
-        url: self.defaults.ajax.list.url,
-        method: self.defaults.ajax.list.method,
-        data: extend(data, self.defaults.ajax.list.data),
-        headers: self.defaults.ajax.list.headers || headers
-    })
-        .then(function (response) {
-            console.log(response.directoryInfo);
-            if (response.status === 1) {
-                self.renderData(response, append, backAddress);
-            }
+        if ($(self.modal).find('#nextPagekey').val() !== 0) {
+            console.log("INPUT " + $(self.modal).find('#nextPagekey').val())
+            $.ajax({
+                url: self.defaults.ajax.list.url,
+                method: self.defaults.ajax.list.method,
+                data: extend(data, self.defaults.ajax.list.data),
+                headers: self.defaults.ajax.list.headers || headers
+            })
+                .then(function (response) {
+                    console.log(response.directoryInfo);
+                    if (response.status === 1) {
+                        self.renderData(response, append, backAddress);
+                    }
 
-        })
-        .catch(function (error) {
-            console.error(error);
-        });
-}
+                })
+                .catch(function (error) {
+                    console.error(error);
+                });
+        }
 
     };
 
@@ -143,11 +143,11 @@ if($(self.modal).find('#nextPagekey').val() !== 0){
 
     renderData = (response = {}, append = false, backAddress = "/") => {
         var self = this;
-        if (response.directoryInfo.nextPageKey === null) {
-            console.log('STOP'+ response.directoryInfo.nextPageKey);
+        if (response.directoryInfo.nextPageKey === null || response.directoryInfo.nextPageKey === "" || response.directoryInfo.nextPageKey === undefined) {
+            console.log('STOP' + response.directoryInfo.nextPageKey);
             $(self.modal).find('#nextPagekey').val(0);
         } else {
-            console.log('RUN'+ response.directoryInfo.nextPageKey);
+            console.log('RUN' + response.directoryInfo.nextPageKey);
             $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
         }
 
@@ -190,7 +190,7 @@ if($(self.modal).find('#nextPagekey').val() !== 0){
 
         $(self.modal).find('.modal-body').off('scroll');
         $(self.modal).find('.modal-body').scroll(function (event) {
-          event.preventDefault();
+            event.preventDefault();
             if ($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16)) {
                 self.getFilesList({
 
