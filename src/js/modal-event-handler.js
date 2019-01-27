@@ -86,6 +86,9 @@ export default class ModalEventHandler {
         headers[header] = token;
         if ($(self.modal).find('#nextPagekey').val() !== 0) {
             console.log("INPUT " + $(self.modal).find('#nextPagekey').val())
+            self.ajaxStart = true;
+            console.log("ajax start,", self.ajaxStart)
+
             $.ajax({
                 url: self.defaults.ajax.list.url,
                 method: self.defaults.ajax.list.method,
@@ -94,6 +97,7 @@ export default class ModalEventHandler {
             })
                 .then(function (response) {
                     self.ajaxStart = false;
+
                     console.log(response.directoryInfo);
                     if (response.status === 1 && response.directoryInfo.nextPageKey !== $(self.modal).find('#nextPagekey').val()) {
                         console.log("do render data")
@@ -191,11 +195,13 @@ export default class ModalEventHandler {
         var self = this;
 
         $(self.modal).find('.modal-body').off('scroll');
-        $(self.modal).find('.modal-body').scroll(function (event) {
+        $(self.modal).find('.modal-body').on('scroll', function (event) {
+            event.preventDefault()
             if (!self.ajaxStart) {
                 if (($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16))) {
-                    self.getFilesList({
+                    console.log("ajax start,", self.ajaxStart)
 
+                    self.getFilesList({
                         nextPagekey: $(self.modal).find('#nextPagekey').val(),
                         path: $(self.modal).find('#path').val()
                     }, true)
