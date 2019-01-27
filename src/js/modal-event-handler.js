@@ -21,6 +21,7 @@ export default class ModalEventHandler {
         this.modal = null;
         this.button = null;
         this.target = null;
+        this.ajaxStart = false;
 
         this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, this);
 
@@ -92,6 +93,7 @@ export default class ModalEventHandler {
                 headers: self.defaults.ajax.list.headers || headers
             })
                 .then(function (response) {
+                    self.ajaxStart = false;
                     console.log(response.directoryInfo);
                     if (response.status === 1 && response.directoryInfo.nextPageKey !== $(self.modal).find('#nextPagekey').val()) {
                         console.log("do render data")
@@ -103,7 +105,6 @@ export default class ModalEventHandler {
                     console.error(error);
                 });
         }
-
     };
 
     enableEvents = () => {
@@ -191,13 +192,14 @@ export default class ModalEventHandler {
 
         $(self.modal).find('.modal-body').off('scroll');
         $(self.modal).find('.modal-body').scroll(function (event) {
-            event.preventDefault();
-            if ($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16)) {
-                self.getFilesList({
+            if (!self.ajaxStart) {
+                if (($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16))) {
+                    self.getFilesList({
 
-                    nextPagekey: $(self.modal).find('#nextPagekey').val(),
-                    path: $(self.modal).find('#path').val()
-                }, true)
+                        nextPagekey: $(self.modal).find('#nextPagekey').val(),
+                        path: $(self.modal).find('#path').val()
+                    }, true)
+                }
             }
         });
 
