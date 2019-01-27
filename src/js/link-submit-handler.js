@@ -11,6 +11,7 @@ export default class LinkSubmitHandler {
         var submitLinkFile = document.querySelector("button#linkSublitBtn");
 
         submitLinkFile.addEventListener('click', (event) => {
+            console.log("clicked");
             // const dataset = event.target.dataset;
             let dataset = {address: linkFile.value};
 
