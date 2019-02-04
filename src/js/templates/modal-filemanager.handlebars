@@ -16,16 +16,17 @@
                 <input type="hidden" id="path" value="">
                 <div class="row fm-wrapper"></div>
             </div>
-
+            {{#userExtraLink}}
             <div class="modal-footer">
                 <div class="form-group form text-right">
                     <label for="linkSublit">آدرس فایل</label>
                     <div class="flexbox">
-                        <input type="text" id="linkSublit" class="form-control form-entry text-left">
-                        <button type="button" id="linkSublitBtn" class="btn btn-primary mr-2">ثبت</button>
+                        <input type="text" id="linkSubmit-{{target}}" class="form-control form-entry text-left">
+                        <button type="button" id="linkSubmitBtn-{{target}}" class="btn btn-primary mr-2">ثبت</button>
                     </div>
                 </div>
             </div>
+            {{/userExtraLink}}
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-xs-12">

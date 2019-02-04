@@ -8,8 +8,8 @@ export default class LinkSubmitHandler {
         var eventFileItemClick = new Event(defaults.customNameForEventFileSelect);
         // var eventFileItemClick = new Event("fm.file.item.select");
 
-        var linkFile = document.querySelector("input#linkSublit");
-        var submitLinkFile = document.querySelector("button#linkSublitBtn");
+        var linkFile = document.querySelector(`input#linkSubmit-${target}`);
+        var submitLinkFile = document.querySelector(`button#linkSubmitBtn-${target}`);
 
         submitLinkFile.addEventListener('click', (event) => {
             console.log("clicked");
@@ -26,7 +26,6 @@ export default class LinkSubmitHandler {
 
             // Dispatch the event.
             eventPlace.dispatchEvent(eventFileItemClick);
-            submitLinkFile.removeEventListener('click', function(){});
             $modal.modal("hide");
         })
     }

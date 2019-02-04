@@ -27,7 +27,6 @@ export default class ItemClickHandler {
                 // Dispatch the event.
                 eventPlace.dispatchEvent(eventFileItemClick);
 
-                item.removeEventListener('click', function(){});
                 $modal.modal("hide");
             })
         })

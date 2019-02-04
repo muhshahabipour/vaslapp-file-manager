@@ -11,7 +11,7 @@ export default class Core{
         const aaaaaaaaa = 1;
 
         var b = document.createElement('div')
-        b.innerHTML = modalFileManager({id: defaults.modalId || 'fileManagerModal'});
+        b.innerHTML = modalFileManager({id: defaults.modalId || 'fileManagerModal', target: defaults.target, userExtraLink: defaults.userExtraLink});
         document.body.appendChild(b);
 
 
