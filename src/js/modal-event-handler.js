@@ -30,9 +30,7 @@ export default class ModalEventHandler {
 
         var self = this;
 
-        console.log("here 10");
-        if (self.defaults.useExtrnalLink){
-            console.log("here 00");
+        if (self.defaults.useExternalLink){
             new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
         }
 

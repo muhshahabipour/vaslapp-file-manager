@@ -12,7 +12,7 @@ export default class Core{
 
 
         var b = document.createElement('div')
-        b.innerHTML = modalFileManager({id: defaults.modalId || 'fileManagerModal', target: clearTextFromSelector(defaults.target), useExtrnalLink: defaults.useExtrnalLink});
+        b.innerHTML = modalFileManager({id: defaults.modalId || 'fileManagerModal', target: clearTextFromSelector(defaults.target), useExternalLink: defaults.useExternalLink});
         document.body.appendChild(b);
 
 
