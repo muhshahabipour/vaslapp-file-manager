@@ -10,7 +10,7 @@ export default class LinkSubmitHandler {
         // var eventFileItemClick = new Event("fm.file.item.select");
 
         var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
-        var submitLinkFile = document.querySelector(`button#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
+        var submitLinkFile = document.querySelector(`a#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
         
         submitLinkFile.addEventListener('click', (event) => {
             // const dataset = event.target.dataset;
