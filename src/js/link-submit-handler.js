@@ -26,7 +26,7 @@ export default class LinkSubmitHandler {
 
             // Dispatch the event.
             eventPlace.dispatchEvent(eventFileItemClick);
-
+            submitLinkFile.removeEventListener('click', function(){});
             $modal.modal("hide");
         })
     }
