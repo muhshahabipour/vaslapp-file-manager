@@ -87,24 +87,24 @@ export default class ModalEventHandler {
         var header = $("meta[name='_csrf_header']").attr("content");
         headers[header] = token;
         headers["X-Requested-With"] = "XMLHttpRequest";
-        
+
         if (self.loadMore) {
             console.log("INPUT " + $(self.modal).find('#nextPagekey').val())
             self.ajaxStart = true;
             console.log("ajax start,", self.ajaxStart)
 
             $.ajax({
-                url: self.defaults.ajax.list.url,
-                method: self.defaults.ajax.list.method,
-                data: extend(data, self.defaults.ajax.list.data),
-                headers: self.defaults.ajax.list.headers || headers
-            })
+                    url: self.defaults.ajax.list.url,
+                    method: self.defaults.ajax.list.method,
+                    data: extend(data, self.defaults.ajax.list.data),
+                    headers: self.defaults.ajax.list.headers || headers
+                })
                 .then(function (response) {
                     self.ajaxStart = false;
 
                     console.log(response.directoryInfo);
                     if (response.status === 1) {
-                        console.log("loadMore ",!has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
+                        console.log("loadMore ", !has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                         if (!has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                             self.loadMore = false;
                         console.log("do render data")
@@ -114,8 +114,8 @@ export default class ModalEventHandler {
                 })
                 .catch(function (error) {
                     var eventError = new Event('fm.error.ajax');
-                    if(error && (error, "status")){
-                        if(error.status === 401){
+                    if (error && (error, "status")) {
+                        if (error.status === 401) {
                             eventError.detail = error;
                             document.dispatchEvent(eventError);
                         }
@@ -201,7 +201,8 @@ export default class ModalEventHandler {
         }
 
         new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
-        new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
+        if (self.useExtrnalLink)
+            new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
 
     };
 

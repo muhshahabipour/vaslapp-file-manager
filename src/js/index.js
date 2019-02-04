@@ -10,6 +10,7 @@ let defaults = {
     target: '', // '#target or .target'
     modalId: '', // 'fileManagerModal'
     customNameForEventFileSelect: 'fm.file.item.select',
+    useExtrnalLink: false,
     ajax: { // for get files
         list: {
             url: 'path.php',
