@@ -7,8 +7,9 @@ import {
 
 
 let defaults = {
-    target: '', // '#target'
+    target: '', // '#target or .target'
     modalId: '', // 'fileManagerModal'
+    // customNameForEventFileSelect: 'fm.file.item.select',
     ajax: { // for get files
         list: {
             url: 'path.php',

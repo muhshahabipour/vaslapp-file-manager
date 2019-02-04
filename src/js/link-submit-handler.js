@@ -5,7 +5,8 @@ export default class LinkSubmitHandler {
     constructor(modal, button, defaults, uploader) {
         let $modal = $(modal);
 
-        var eventFileItemClick = new Event('fm.file.item.select');
+        // var eventFileItemClick = new Event(defaults.customNameForEventFileSelect);
+        var eventFileItemClick = new Event("fm.file.item.select");
 
         var linkFile = document.querySelector("input#linkSublit");
         var submitLinkFile = document.querySelector("button#linkSublitBtn");

@@ -86,6 +86,8 @@ export default class ModalEventHandler {
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         headers[header] = token;
+        headers["X-Requested-With"] = "XMLHttpRequest";
+        
         if (self.loadMore) {
             console.log("INPUT " + $(self.modal).find('#nextPagekey').val())
             self.ajaxStart = true;
@@ -111,6 +113,13 @@ export default class ModalEventHandler {
 
                 })
                 .catch(function (error) {
+                    // var eventError = new Event('fm.error.ajax');
+                    // if(error && (error, "status")){
+                    //     if(error.status === 401){
+                    //         eventError.detail = error;
+                    //         document.dispatchEvent(eventError);
+                    //     }
+                    // }
                     console.error(error);
                 });
         }

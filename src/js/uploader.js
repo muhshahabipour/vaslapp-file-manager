@@ -21,6 +21,7 @@ export default class Uploader {
                 const token = $("meta[name='_csrf']").attr("content");
                 const header = $("meta[name='_csrf_header']").attr("content");
                 headers[header] = token;
+                headers["X-Requested-With"] = "XMLHttpRequest";
 
                 const form = $('#' + this.id + '-form-vaslapp-file-uploader');
                 const formData = new FormData(form[0]);
@@ -56,6 +57,13 @@ export default class Uploader {
                         }
                     })
                     .catch(function (error) {
+                        // var eventError = new Event('fm.error.ajax');
+                        // if(error && (error, "status")){
+                        //     if(error.status === 401){
+                        //         eventError.detail = error;
+                        //         document.dispatchEvent(eventError);
+                        //     }
+                        // }
                         console.error(error);
                     });
             }

@@ -6,7 +6,9 @@ export default class ItemClickHandler {
     constructor(modal, button, defaults, uploader) {
         let $modal = $(modal);
 
-        var eventFileItemClick = new Event('fm.file.item.select');
+        //default => fm.file.item.select
+        // var eventFileItemClick = new Event(defaults.customNameForEventFileSelect);
+        var eventFileItemClick = new Event("fm.file.item.select");
 
         var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         fileItems.forEach((item) => {
