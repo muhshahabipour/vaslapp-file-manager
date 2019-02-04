@@ -30,9 +30,7 @@ export default class ModalEventHandler {
 
         var self = this;
 
-        if (self.defaults.useExternalLink){
-            new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
-        }
+        
 
         $(self.modal).on('show.bs.modal', function (event) {
 
@@ -130,6 +128,10 @@ export default class ModalEventHandler {
 
     enableEvents = () => {
         var self = this;
+
+        if (self.defaults.useExternalLink){
+            new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
+        }
 
         $(self.modal).on('show.bs.modal', function (event) {
 
