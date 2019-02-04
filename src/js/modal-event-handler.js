@@ -113,14 +113,14 @@ export default class ModalEventHandler {
 
                 })
                 .catch(function (error) {
-                    // var eventError = new Event('fm.error.ajax');
-                    // if(error && (error, "status")){
-                    //     if(error.status === 401){
-                    //         eventError.detail = error;
-                    //         document.dispatchEvent(eventError);
-                    //     }
-                    // }
-                    console.error(error);
+                    var eventError = new Event('fm.error.ajax');
+                    if(error && (error, "status")){
+                        if(error.status === 401){
+                            eventError.detail = error;
+                            document.dispatchEvent(eventError);
+                        }
+                    }
+                    // console.error(error);
                 });
         }
     };
