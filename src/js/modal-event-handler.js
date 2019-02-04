@@ -201,7 +201,7 @@ export default class ModalEventHandler {
         }
 
         new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
-        if (self.useExtrnalLink)
+        if (self.defaults.useExtrnalLink)
             new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
 
     };
