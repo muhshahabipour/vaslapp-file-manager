@@ -14,8 +14,6 @@ export default class Uploader {
         let fileSelector = document.querySelector('#' + this.id + '-vaslapp-file-selector');
         fileSelector.addEventListener("change", (event) => {
 
-            // console.log("this.ajax", this.ajax);
-
             if (fileSelector.files && fileSelector.files.length) {
                 let headers = {};
                 const token = $("meta[name='_csrf']").attr("content");

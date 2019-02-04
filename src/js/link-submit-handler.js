@@ -1,3 +1,4 @@
+import { clearTextFromSelector } from "./general-functions";
 
 
 export default class LinkSubmitHandler {
@@ -8,11 +9,10 @@ export default class LinkSubmitHandler {
         var eventFileItemClick = new Event(defaults.customNameForEventFileSelect);
         // var eventFileItemClick = new Event("fm.file.item.select");
 
-        var linkFile = document.querySelector(`input#linkSubmit-${target}`);
-        var submitLinkFile = document.querySelector(`button#linkSubmitBtn-${target}`);
-
+        var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
+        var submitLinkFile = document.querySelector(`button#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
+        
         submitLinkFile.addEventListener('click', (event) => {
-            console.log("clicked");
             // const dataset = event.target.dataset;
             let dataset = {address: linkFile.value};
 
@@ -26,6 +26,9 @@ export default class LinkSubmitHandler {
 
             // Dispatch the event.
             eventPlace.dispatchEvent(eventFileItemClick);
+            
+            linkFile.value = "";
+
             $modal.modal("hide");
         })
     }

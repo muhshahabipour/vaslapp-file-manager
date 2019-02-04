@@ -23,7 +23,13 @@ export const triggerEvent = (el, type) => {
 }
 
 
+export const clearTextFromSelector = (text) => {
+    return text.replace(/[#.]/gm,"");
+}
+
+
 export default {
     uuid,
-    triggerEvent
+    triggerEvent,
+    clearTextFromSelector
 }

@@ -30,6 +30,12 @@ export default class ModalEventHandler {
 
         var self = this;
 
+        console.log("here 10");
+        if (self.defaults.useExtrnalLink){
+            console.log("here 00");
+            new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
+        }
+
         $(self.modal).on('show.bs.modal', function (event) {
 
             self.button = event.relatedTarget;
@@ -39,6 +45,10 @@ export default class ModalEventHandler {
             self.getFilesList();
 
             self.enableLoadMore();
+
+
+
+
         });
 
         $(self.modal).on('hide.bs.modal', function (event) {
@@ -89,9 +99,7 @@ export default class ModalEventHandler {
         headers["X-Requested-With"] = "XMLHttpRequest";
 
         if (self.loadMore) {
-            console.log("INPUT " + $(self.modal).find('#nextPagekey').val())
             self.ajaxStart = true;
-            console.log("ajax start,", self.ajaxStart)
 
             $.ajax({
                     url: self.defaults.ajax.list.url,
@@ -102,12 +110,9 @@ export default class ModalEventHandler {
                 .then(function (response) {
                     self.ajaxStart = false;
 
-                    console.log(response.directoryInfo);
                     if (response.status === 1) {
-                        console.log("loadMore ", !has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                         if (!has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                             self.loadMore = false;
-                        console.log("do render data")
                         self.renderData(response, append, backAddress);
                     }
 
@@ -164,10 +169,8 @@ export default class ModalEventHandler {
     renderData = (response = {}, append = false, backAddress = "/") => {
         var self = this;
         if (response.directoryInfo.nextPageKey === null || response.directoryInfo.nextPageKey === "" || response.directoryInfo.nextPageKey === undefined) {
-            console.log('STOP' + response.directoryInfo.nextPageKey);
             $(self.modal).find('#nextPagekey').val(0);
         } else {
-            console.log('RUN' + response.directoryInfo.nextPageKey);
             $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
         }
 
@@ -201,9 +204,6 @@ export default class ModalEventHandler {
         }
 
         new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
-        if (self.defaults.useExtrnalLink)
-            new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
-
     };
 
     enableLoadMore = () => {
@@ -214,7 +214,6 @@ export default class ModalEventHandler {
             event.preventDefault()
             if (!self.ajaxStart) {
                 if (($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16))) {
-                    console.log("ajax start,", self.ajaxStart)
 
                     self.getFilesList({
                         nextPagekey: $(self.modal).find('#nextPagekey').val(),
