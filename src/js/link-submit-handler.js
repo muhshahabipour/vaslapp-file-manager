@@ -10,10 +10,9 @@ export default class LinkSubmitHandler {
         // var eventFileItemClick = new Event("fm.file.item.select");
 
         var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
-        var submitLinkFile = document.querySelector(`a#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
+        var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
         
-        submitLinkFile.addEventListener('click', (event) => {
-            // const dataset = event.target.dataset;
+        submitLinkFile.addEventListener('click', () => {
             let dataset = {address: linkFile.value};
 
             eventFileItemClick.detail = dataset;
@@ -28,7 +27,7 @@ export default class LinkSubmitHandler {
             eventPlace.dispatchEvent(eventFileItemClick);
             
             linkFile.value = "";
-            submitLinkFile.removeEventListener('click', (event) => {});
+            submitLinkFile.removeEventListener('click', () => {});
             $modal.modal("hide");
         })
     }
