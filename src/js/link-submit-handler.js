@@ -23,13 +23,20 @@ export default class LinkSubmitHandler {
                 eventPlace = document.querySelector(defaults.target);
             }
 
-            linkFile.value = "";
-            submitLinkFile.removeEventListener('click', () => {});
-
             // Dispatch the event.
             eventPlace.dispatchEvent(eventFileItemClick);
-            
+
             $modal.modal("hide");
         })
+    }
+
+
+    distroy(defaults) {
+
+        var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
+        var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
+
+        linkFile.value = "";
+        submitLinkFile.removeEventListener('click', () => {});
     }
 }

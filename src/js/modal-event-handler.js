@@ -30,7 +30,7 @@ export default class ModalEventHandler {
 
         var self = this;
 
-        
+
 
         $(self.modal).on('show.bs.modal', function (event) {
 
@@ -129,9 +129,7 @@ export default class ModalEventHandler {
     enableEvents = () => {
         var self = this;
 
-        if (self.defaults.useExternalLink){
-            new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
-        }
+        self.linkSubmit = null
 
         $(self.modal).on('show.bs.modal', function (event) {
 
@@ -142,6 +140,10 @@ export default class ModalEventHandler {
             self.getFilesList();
 
             self.enableLoadMore();
+
+            if (self.defaults.useExternalLink) {
+                self.linkSubmit = new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
+            }
         });
 
         $(self.modal).on('hide.bs.modal', function (event) {
@@ -151,6 +153,10 @@ export default class ModalEventHandler {
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
             self.uploader.distroy();
+
+            if (self.defaults.useExternalLink) {
+                self.linkSubmit.distroy(self.defaults);
+            }
         });
     };
 
