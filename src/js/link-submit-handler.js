@@ -14,44 +14,27 @@ export default class LinkSubmitHandler {
         var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
         var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
 
-        submitLinkFile.addEventListener('click', eventAction, true)
+        submitLinkFile.addEventListener('click', () => {
+            let dataset = {
+                address: linkFile.value
+            };
+        
+            eventFileItemClick.detail = dataset;
+            eventFileItemClick.relatedTarget = button;
+        
+            let eventPlace = document;
+            if (defaults.target != "") {
+                eventPlace = document.querySelector(defaults.target);
+            }
+        
+        
+            submitLinkFile.removeEventListener('click', this, true);
+        
+        
+            // Dispatch the event.
+            eventPlace.dispatchEvent(eventFileItemClick);
+            linkFile.value = "";
+            $modal.modal("hide");
+        }, true)
     }
-
-
-    distroy(defaults) {
-
-        var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
-        var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
-
-        linkFile.value = "";
-        submitLinkFile.removeEventListener('click', eventAction, true);
-    }
-
-
-
-
-}
-
-
-function eventAction() {
-    let dataset = {
-        address: linkFile.value
-    };
-
-    eventFileItemClick.detail = dataset;
-    eventFileItemClick.relatedTarget = button;
-
-    let eventPlace = document;
-    if (defaults.target != "") {
-        eventPlace = document.querySelector(defaults.target);
-    }
-
-
-    submitLinkFile.removeEventListener('click', this, true);
-
-
-    // Dispatch the event.
-    eventPlace.dispatchEvent(eventFileItemClick);
-    linkFile.value = "";
-    $modal.modal("hide");
 }
