@@ -27,16 +27,12 @@ export default class LinkSubmitHandler {
                 eventPlace = document.querySelector(defaults.target);
             }
 
-            console.log("Click add link")
-
             // Dispatch the event.
             eventPlace.dispatchEvent(eventFileItemClick);
             linkFile.value = "";
 
-            if ($modal.hasClass('in')) {
-                console.log("Start Remove")
+            if ($modal.hasClass('in') || $modal.hasClass('show')) {
                 submitLinkFile.removeEventListener("click", _listener, true);
-                console.log("Hide modal")
                 $modal.modal("hide");
             }
 
