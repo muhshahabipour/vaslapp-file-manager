@@ -1,4 +1,6 @@
-import { clearTextFromSelector } from "./general-functions";
+import {
+    clearTextFromSelector
+} from "./general-functions";
 
 
 export default class LinkSubmitHandler {
@@ -11,27 +13,8 @@ export default class LinkSubmitHandler {
 
         var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
         var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
-        
-        submitLinkFile.addEventListener('click', () => {
-            let dataset = {address: linkFile.value};
 
-            eventFileItemClick.detail = dataset;
-            eventFileItemClick.relatedTarget = button;
-
-            let eventPlace = document;
-            if (defaults.target != "") {
-                eventPlace = document.querySelector(defaults.target);
-            }
-
-            
-            submitLinkFile.removeEventListener('click', () => {});
-
-
-            // Dispatch the event.
-            eventPlace.dispatchEvent(eventFileItemClick);
-            linkFile.value = "";
-            $modal.modal("hide");
-        })
+        submitLinkFile.addEventListener('click', eventAction, true)
     }
 
 
@@ -41,6 +24,34 @@ export default class LinkSubmitHandler {
         var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
 
         linkFile.value = "";
-        submitLinkFile.removeEventListener('click', () => {});
+        submitLinkFile.removeEventListener('click', eventAction, true);
     }
+
+
+
+
+}
+
+
+function eventAction() {
+    let dataset = {
+        address: linkFile.value
+    };
+
+    eventFileItemClick.detail = dataset;
+    eventFileItemClick.relatedTarget = button;
+
+    let eventPlace = document;
+    if (defaults.target != "") {
+        eventPlace = document.querySelector(defaults.target);
+    }
+
+
+    submitLinkFile.removeEventListener('click', this, true);
+
+
+    // Dispatch the event.
+    eventPlace.dispatchEvent(eventFileItemClick);
+    linkFile.value = "";
+    $modal.modal("hide");
 }
