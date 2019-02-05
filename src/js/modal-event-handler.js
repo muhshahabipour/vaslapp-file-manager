@@ -43,7 +43,9 @@ export default class ModalEventHandler {
             self.enableLoadMore();
 
 
-
+            if (self.defaults.useExternalLink) {
+                new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
+            }
 
         });
 
@@ -139,9 +141,7 @@ export default class ModalEventHandler {
 
             self.enableLoadMore();
 
-            if (self.defaults.useExternalLink) {
-                new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
-            }
+            
         });
 
         $(self.modal).on('hide.bs.modal', function (event) {
