@@ -5,7 +5,7 @@ import {
 
 export default class LinkSubmitHandler {
 
-    constructor(modal, button, defaults, uploader) {
+    constructor(modal, button, defaults) {
         let $modal = $(modal);
 
         var eventFileItemClick = new Event(defaults.customNameForEventFileSelect);
@@ -14,12 +14,29 @@ export default class LinkSubmitHandler {
         var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
         var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
 
-        submitLinkFile.addEventListener('click', eventAction(eventFileItemClick, defaults, button, submitLinkFile, linkFile, $modal), true)
+        submitLinkFile.addEventListener('click', eventAction(eventFileItemClick, defaults, button, linkFile, $modal), true)
+    }
+
+
+
+    distroy(modal, defaults) {
+
+        let $modal = $(modal);
+
+        var eventFileItemClick = new Event(defaults.customNameForEventFileSelect);
+        // var eventFileItemClick = new Event("fm.file.item.select");
+
+        var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
+        var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
+
+        let button = null;
+
+        submitLinkFile.removeEventListener('click', eventAction(eventFileItemClick, defaults, button, linkFile, $modal), true);
     }
 }
 
 
-function eventAction(eventFileItemClick, defaults, button, submitLinkFile, linkFile, modal){
+function eventAction(eventFileItemClick, defaults, button, linkFile, modal) {
     let dataset = {
         address: linkFile.value
     };
@@ -32,12 +49,11 @@ function eventAction(eventFileItemClick, defaults, button, submitLinkFile, linkF
         eventPlace = document.querySelector(defaults.target);
     }
 
-    
-    submitLinkFile.removeEventListener('click', eventAction(eventFileItemClick, defaults, button, submitLinkFile, linkFile, modal), true);
-
-
     // Dispatch the event.
     eventPlace.dispatchEvent(eventFileItemClick);
     linkFile.value = "";
-    modal.modal("hide");
+
+    if (modal.hasClass('in')) {
+        modal.modal("hide");
+    }
 }
