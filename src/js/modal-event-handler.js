@@ -43,22 +43,8 @@ export default class ModalEventHandler {
 
             self.enableLoadMore();
 
-
-            if (self.defaults.useExternalLink && !self.linkSubmitInit) {
-                new LinkSubmitHandler(self.modal, self.button, self.defaults);
-                self.linkSubmitInit = true
-            }
-
         });
 
-        $(self.modal).on('hidden.bs.modal', function (event) {
-
-            debugger
-            if (self.defaults.useExternalLink) {
-                self.linkSubmit.distroy(self.defaults)
-            }
-        })
-        
         $(self.modal).on('hide.bs.modal', function (event) {
 
             $(self.modal).find('.modal-body .fm-wrapper').html("");
@@ -151,9 +137,8 @@ export default class ModalEventHandler {
 
             self.enableLoadMore();
 
-            if (self.defaults.useExternalLink && !self.linkSubmitInit) {
+            if (self.defaults.useExternalLink) {
                 new LinkSubmitHandler(self.modal, self.button, self.defaults);
-                self.linkSubmitInit = true
             }
 
         });
