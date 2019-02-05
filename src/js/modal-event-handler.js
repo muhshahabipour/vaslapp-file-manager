@@ -23,6 +23,8 @@ export default class ModalEventHandler {
         this.target = null;
         this.ajaxStart = false;
         this.loadMore = true;
+        this.linkSubmitInit = false;
+
 
         this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, this);
 
@@ -30,7 +32,6 @@ export default class ModalEventHandler {
 
         var self = this;
 
-        self.linkSubmit = null;
 
         $(self.modal).on('show.bs.modal', function (event) {
 
@@ -43,21 +44,26 @@ export default class ModalEventHandler {
             self.enableLoadMore();
 
 
-            if (self.defaults.useExternalLink) {
-                self.linkSubmit = new LinkSubmitHandler(self.modal, self.button, self.defaults);
+            if (self.defaults.useExternalLink && !self.linkSubmitInit) {
+                new LinkSubmitHandler(self.modal, self.button, self.defaults);
+                self.linkSubmitInit = true
             }
 
         });
 
+        $(self.modal).on('hidden.bs.modal', function (event) {
+
+            debugger
+            if (self.defaults.useExternalLink) {
+                self.linkSubmit.distroy(self.defaults)
+            }
+        })
+        
         $(self.modal).on('hide.bs.modal', function (event) {
 
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
             self.uploader.distroy();
-
-            if (self.defaults.useExternalLink) {
-                self.linkSubmit.distroy(self.modal, self.defaults)
-            }
         });
 
 
@@ -145,8 +151,13 @@ export default class ModalEventHandler {
 
             self.enableLoadMore();
 
-            
+            if (self.defaults.useExternalLink && !self.linkSubmitInit) {
+                new LinkSubmitHandler(self.modal, self.button, self.defaults);
+                self.linkSubmitInit = true
+            }
+
         });
+        
 
         $(self.modal).on('hide.bs.modal', function (event) {
 
