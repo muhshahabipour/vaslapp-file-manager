@@ -3,39 +3,53 @@ import {
 } from "./general-functions";
 
 
+let selfClass = null;
+
 export default class LinkSubmitHandler {
 
     constructor(modal, button, defaults) {
-        let $modal = $(modal);
+        this.modal = $(modal);
+        this.button = button;
+        this.defaults = defaults;
+        this.eventFileItemClick = new Event(this.defaults.customNameForEventFileSelect);
+        // this.eventFileItemClick = new Event("fm.file.item.select");
+        this.linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(this.defaults.target)}`);
+        this.submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(this.defaults.target)}`);
 
-        var eventFileItemClick = new Event(defaults.customNameForEventFileSelect);
-        // var eventFileItemClick = new Event("fm.file.item.select");
+        selfClass = this;
 
-        var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
-        var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
+        this.init();
+    }
 
-        submitLinkFile.addEventListener('click', function _listener() {
-            let dataset = {
-                address: linkFile.value
-            };
+    init() {
+        let self = this;
+        this.submitLinkFile.removeEventListener('click', self._listener(), true)
+        this.submitLinkFile.addEventListener('click', self._listener, true)
+    }
 
-            eventFileItemClick.detail = dataset;
-            eventFileItemClick.relatedTarget = button;
+    _listener() {
+        let self = selfClass;
 
-            let eventPlace = document;
-            if (defaults.target != "") {
-                eventPlace = document.querySelector(defaults.target);
-            }
+        let dataset = {
+            address: self.linkFile.value
+        };
 
+        self.eventFileItemClick.detail = dataset;
+        self.eventFileItemClick.relatedTarget = self.button;
+
+        let eventPlace = document;
+        if (self.defaults.target != "") {
+            eventPlace = document.querySelector(self.defaults.target);
+        }
+
+        // self.submitLinkFile.removeEventListener("click", self._listener, true);
+
+        if (self.modal.hasClass('in') || self.modal.hasClass('show')) {
             // Dispatch the event.
-            eventPlace.dispatchEvent(eventFileItemClick);
-            linkFile.value = "";
+            eventPlace.dispatchEvent(self.eventFileItemClick);
+            self.linkFile.value = "";
 
-            if ($modal.hasClass('in') || $modal.hasClass('show')) {
-                submitLinkFile.removeEventListener("click", _listener, true);
-                $modal.modal("hide");
-            }
-
-        }, true)
+            self.modal.modal("hide");
+        }
     }
 }
