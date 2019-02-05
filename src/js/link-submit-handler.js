@@ -28,7 +28,7 @@ export default class LinkSubmitHandler {
             
             linkFile.value = "";
             $modal.modal("hide");
-            submitLinkFile.removeEventListener('click', () => {});
+            // submitLinkFile.removeEventListener('click', () => {});
         })
     }
 }
