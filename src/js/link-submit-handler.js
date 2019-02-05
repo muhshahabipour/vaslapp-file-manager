@@ -14,6 +14,8 @@ export default class LinkSubmitHandler {
         var linkFile = document.querySelector(`input#linkSubmit-${clearTextFromSelector(defaults.target)}`);
         var submitLinkFile = document.querySelector(`div#linkSubmitBtn-${clearTextFromSelector(defaults.target)}`);
 
+        console.log("HERE 01")
+
         submitLinkFile.addEventListener('click', eventAction(eventFileItemClick, defaults, button, linkFile, $modal), true)
     }
 
@@ -31,7 +33,11 @@ export default class LinkSubmitHandler {
 
         let button = null;
 
+        console.log("HERE 03")
+
         submitLinkFile.removeEventListener('click', eventAction(eventFileItemClick, defaults, button, linkFile, $modal), true);
+
+        console.log("HERE 04")
     }
 }
 
@@ -49,11 +55,16 @@ function eventAction(eventFileItemClick, defaults, button, linkFile, modal) {
         eventPlace = document.querySelector(defaults.target);
     }
 
+    console.log("HERE 02")
+
     // Dispatch the event.
     eventPlace.dispatchEvent(eventFileItemClick);
     linkFile.value = "";
 
     if (modal.hasClass('in')) {
+        console.log("HERE 02-1")
         modal.modal("hide");
     }
+
+    console.log("HERE 02-2")
 }
