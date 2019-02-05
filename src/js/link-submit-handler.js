@@ -34,9 +34,9 @@ export default class LinkSubmitHandler {
             linkFile.value = "";
 
             if ($modal.hasClass('in')) {
+                submitLinkFile.removeEventListener("click", _listener, true);
                 console.log("Hide modal")
                 $modal.modal("hide");
-                submitLinkFile.removeEventListener("click", _listener, true);
             }
 
         }, true)
