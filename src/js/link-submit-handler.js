@@ -23,9 +23,13 @@ export default class LinkSubmitHandler {
                 eventPlace = document.querySelector(defaults.target);
             }
 
+            
+            submitLinkFile.removeEventListener('click', () => {});
+
+
             // Dispatch the event.
             eventPlace.dispatchEvent(eventFileItemClick);
-
+            linkFile.value = "";
             $modal.modal("hide");
         })
     }

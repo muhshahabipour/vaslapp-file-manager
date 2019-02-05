@@ -129,8 +129,6 @@ export default class ModalEventHandler {
     enableEvents = () => {
         var self = this;
 
-        self.linkSubmit = null
-
         $(self.modal).on('show.bs.modal', function (event) {
 
             self.button = event.relatedTarget;
@@ -142,7 +140,7 @@ export default class ModalEventHandler {
             self.enableLoadMore();
 
             if (self.defaults.useExternalLink) {
-                self.linkSubmit = new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
+                new LinkSubmitHandler(self.modal, self.button, self.defaults, self.uploader);
             }
         });
 
@@ -153,10 +151,6 @@ export default class ModalEventHandler {
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
             self.uploader.distroy();
-
-            if (self.defaults.useExternalLink) {
-                self.linkSubmit.distroy(self.defaults);
-            }
         });
     };
 
