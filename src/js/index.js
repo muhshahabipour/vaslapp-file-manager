@@ -1,10 +1,6 @@
 import '../scss/index.scss';
 import extend from 'lodash/extend';
 import Core from './core';
-import {
-    relative
-} from 'path';
-
 
 let defaults = {
     target: '', // '#target or .target'

@@ -28,51 +28,7 @@ export default class ModalEventHandler {
 
         this.uploader = new Uploader(this.defaults.ajax.upload, this.defaults.modalId, this);
 
-        this.model = document.querySelector('#' + (this.defaults.modalId || 'fileManagerModal'));
-
         var self = this;
-
-
-        $(self.modal).on('show.bs.modal', function (event) {
-
-            self.button = event.relatedTarget;
-
-            self.uploader.initial();
-
-            self.getFilesList();
-
-            self.enableLoadMore();
-
-        });
-
-        $(self.modal).on('hide.bs.modal', function (event) {
-
-            $(self.modal).find('.modal-body .fm-wrapper').html("");
-
-            self.uploader.distroy();
-        });
-
-
-        document.addEventListener('fm.folder.item.select', function (event) {
-            console.info("this-folder", self);
-            self.loadMore = true;
-            self.getFilesList({
-                nextPagekey: event.detail.nextPagekey || '',
-                path: event.detail.address
-            }, false, event.detail.backPath);
-
-        }, false);
-
-        document.addEventListener('fm.back.item.select', function (event) {
-            console.info("this-back", self);
-            console.info("back", event);
-            self.loadMore = true;
-            self.getFilesList({
-                nextPagekey: event.detail.nextPagekey || '',
-                path: event.detail.address
-            }, false, event.detail.backPath);
-
-        }, false);
 
         return self;
 
@@ -128,43 +84,35 @@ export default class ModalEventHandler {
         var self = this;
 
         $(self.modal).on('show.bs.modal', function (event) {
-
             self.button = event.relatedTarget;
-
             self.uploader.initial();
-
             self.getFilesList();
-
             self.enableLoadMore();
-
+            
             if (self.defaults.useExternalLink) {
                 new LinkSubmitHandler(self.modal, self.button, self.defaults);
             }
-
         });
-        
+
 
         $(self.modal).on('hide.bs.modal', function (event) {
-
-            self.removeEvents();
-
+            // self.removeEvents();
             $(self.modal).find('.modal-body .fm-wrapper').html("");
-
             self.uploader.distroy();
         });
     };
 
-    removeEvents = () => {
-        var fileItems = document.querySelectorAll("[data-toggle='addFile']");
-        fileItems.forEach((item) => {
-            $(item).off('click');
-        });
+    // removeEvents = () => {
+    //     var fileItems = document.querySelectorAll("[data-toggle='addFile']");
+    //     fileItems.forEach((item) => {
+    //         $(item).off('click');
+    //     });
 
-        var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
-        folderItems.forEach((item) => {
-            $(item).off('click');
-        });
-    }
+    //     var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
+    //     folderItems.forEach((item) => {
+    //         $(item).off('click');
+    //     });
+    // }
 
     renderData = (response = {}, append = false, backAddress = "/") => {
         var self = this;
@@ -202,8 +150,9 @@ export default class ModalEventHandler {
                 }
             });
         }
-
+        
         new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
+        onCustomEvents();
     };
 
     enableLoadMore = () => {
@@ -230,4 +179,35 @@ export default class ModalEventHandler {
     setModal = (modal) => {
         this.modal = modal;
     };
+}
+
+
+
+
+var onCustomEvents = function () {
+    document.removeEventListener('fm.folder.item.select', _listenerFileSelect, false);
+    document.addEventListener('fm.folder.item.select', _listenerFileSelect, false);
+
+    document.removeEventListener('fm.back.item.select', _listenerBackSelect, false);
+    document.addEventListener('fm.back.item.select', _listenerBackSelect, false);
+};
+
+var _listenerFileSelect = function () {
+    console.info("this-folder", self);
+    self.loadMore = true;
+    self.getFilesList({
+        nextPagekey: event.detail.nextPagekey || '',
+        path: event.detail.address
+    }, false, event.detail.backPath);
+
+}
+
+var _listenerBackSelect = function () {
+    console.info("this-back", self);
+    console.info("back", event);
+    self.loadMore = true;
+    self.getFilesList({
+        nextPagekey: event.detail.nextPagekey || '',
+        path: event.detail.address
+    }, false, event.detail.backPath);
 }
