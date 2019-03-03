@@ -63,12 +63,12 @@ export default class ModalEventHandler {
                         if (!has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                             self.loadMore = false;
                         let newBackAddress = "";
+                        console.log("path", data.path)
                         console.log("newBackAddress 01", newBackAddress)
                         if (has(data, "path") && data.path != "/") {
                             newBackAddress = (data.path).replace(/((\/)*[^\/]+(\/)*)$/mg, "");
-                            if (newBackAddress == "") {
-                                newBackAddress = "/";
-                            }
+                        } else if (data.path == "/") {
+                            newBackAddress = "";
                         } else {
                             newBackAddress = "/";
                         }
@@ -149,6 +149,7 @@ export default class ModalEventHandler {
         if (has(response, "directoryInfo") && has(response.directoryInfo, "data")) {
             response.directoryInfo.data.forEach((item) => {
                 if (item.isDirectory) {
+
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
                         name: item.name,
                         url: backAddress + (item.name)
