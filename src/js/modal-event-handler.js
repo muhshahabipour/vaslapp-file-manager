@@ -151,7 +151,7 @@ export default class ModalEventHandler {
             response.directoryInfo.data.forEach((item) => {
                 if (item.isDirectory) {
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
-                        name: item.name
+                        name: backAddress + (item.name)
                     }));
                 } else {
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
