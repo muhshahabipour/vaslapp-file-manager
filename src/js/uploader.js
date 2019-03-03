@@ -24,16 +24,17 @@ export default class Uploader {
                 const form = $('#' + this.id + '-form-vaslapp-file-uploader');
                 const formData = new FormData(form[0]);
 
-                let currentPath, previousPath;
-                try {
-                    currentPath = $('#' + this.id + '-vaslapp-file-path').val();
-                    if (currentPath.endsWith("/")) {
-                        let currentPathNormal = currentPath.substr(0, (currentPath.length - 1));
-                        previousPath = currentPathNormal.substr(0, currentPathNormal.lastIndexOf("/"))
-                    } else {
-                        previousPath = currentPath.substr(0, currentPath.lastIndexOf("/"))
-                    };
-                } catch (err) {}
+                let currentPath;
+                // let previousPath;
+                // try {
+                // currentPath = $('#' + this.id + '-vaslapp-file-path').val();
+                // if (currentPath.endsWith("/")) {
+                // let currentPathNormal = currentPath.substr(0, (currentPath.length - 1));
+                // previousPath = currentPathNormal.substr(0, currentPathNormal.lastIndexOf("/"))
+                // } else {
+                // previousPath = currentPath.substr(0, currentPath.lastIndexOf("/"))
+                // };
+                // } catch (err) {}
 
                 $.ajax({
                         url: this.ajax.url,
@@ -49,15 +50,16 @@ export default class Uploader {
                             self.modalClass.getFilesList({
                                 nextPagekey: "",
                                 path: currentPath || "/"
-                            }, false, previousPath || "/")
+                                // }, false, previousPath || "/")
+                            }, false)
                         } else {
                             console.error(response.msg);
                         }
                     })
                     .catch(function (error) {
                         var eventError = new Event('fm.error.ajax');
-                        if(error && (error, "status")){
-                            if(error.status === 401){
+                        if (error && (error, "status")) {
+                            if (error.status === 401) {
                                 eventError.detail = error;
                                 document.dispatchEvent(eventError);
                             }

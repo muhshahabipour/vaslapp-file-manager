@@ -37,7 +37,7 @@ export default class ModalEventHandler {
     getFilesList = (data = {
         nextPagekey: '',
         path: '/'
-    }, append = false, backAddress = "/") => {
+    }, append = false) => {
 
         var self = this;
 
@@ -59,9 +59,13 @@ export default class ModalEventHandler {
                 })
                 .then(function (response) {
                     self.ajaxStart = false;
-                    if (backAddress == "/" && has(data, "path") && data.path != "/") {
+                    if (has(data, "path") && data.path != "/") {
                         backAddress = (data.path).replace(/((\/)*[^\/]+(\/)*)$/mg, "")
-                    }else{
+                    } else if (has(data, "path") && data.path == "/") {
+                        backAddress = ""
+                    } else if (!has(data, "path") && data.path == "/") {
+                        backAddress = ""
+                    } else {
                         backAddress = "/"
                     }
 
@@ -205,7 +209,8 @@ var _listenerFileSelect = function (event) {
     selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
         path: event.detail.address
-    }, false, event.detail.backPath);
+    // }, false, event.detail.backPath);
+    }, false);
 
 }
 
@@ -215,5 +220,6 @@ var _listenerBackSelect = function (event) {
     selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
         path: event.detail.address
-    }, false, event.detail.backPath);
+    // }, false, event.detail.backPath);
+    }, false);
 }
