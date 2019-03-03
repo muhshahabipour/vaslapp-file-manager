@@ -10,7 +10,7 @@ import fileManagerItemFolder from "./templates/item-folder.handlebars";
 import fileManagerItemBack from "./templates/item-back.handlebars";
 
 
-
+var selfClass = "";
 
 export default class ModalEventHandler {
 
@@ -152,6 +152,7 @@ export default class ModalEventHandler {
             });
         }
         
+        selfClass = this;
         onCustomEvents();
         new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
     };
@@ -192,21 +193,21 @@ var onCustomEvents = function () {
     document.addEventListener('fm.back.item.select', _listenerBackSelect, false);
 };
 
-var _listenerFileSelect = function () {
-    console.info("this-folder", self);
-    self.loadMore = true;
-    self.getFilesList({
+var _listenerFileSelect = function (event) {
+    console.info("this-folder", selfClass);
+    selfClass.loadMore = true;
+    selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
         path: event.detail.address
     }, false, event.detail.backPath);
 
 }
 
-var _listenerBackSelect = function () {
-    console.info("this-back", self);
+var _listenerBackSelect = function (event) {
+    console.info("this-back", selfClass);
     console.info("back", event);
-    self.loadMore = true;
-    self.getFilesList({
+    selfClass.loadMore = true;
+    selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
         path: event.detail.address
     }, false, event.detail.backPath);

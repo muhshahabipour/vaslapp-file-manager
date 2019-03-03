@@ -60,7 +60,7 @@ var _listenerBackClick = function (event) {
     eventBackItemClick.relatedTarget = selfButton;
 
     // Dispatch the event.
-    console.log("Here Folder Click")
+    console.log("Here Back Click")
     document.dispatchEvent(eventBackItemClick);
 
 }
@@ -82,7 +82,7 @@ var _listenerFolderClick = function (event) {
 
 
     // Dispatch the event.
-    console.log("Here Back Click")
+    console.log("Here Folder Click")
     document.dispatchEvent(eventFolderItemClick);
 
     // selfModal.modal("hide");
