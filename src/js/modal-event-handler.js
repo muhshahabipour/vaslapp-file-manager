@@ -37,7 +37,7 @@ export default class ModalEventHandler {
     getFilesList = (data = {
         nextPagekey: '',
         path: '/'
-    }, append = false, backAddress = "/") => {
+    }, append = false) => {
 
         var self = this;
 
@@ -62,7 +62,7 @@ export default class ModalEventHandler {
                     if (response.status === 1) {
                         if (!has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                             self.loadMore = false;
-                        let newBackAddress = backAddress;
+                        let newBackAddress = "";
                         console.log("newBackAddress 01", newBackAddress)
                         if (has(data, "path") && data.path != "/") {
                             newBackAddress = (data.path).replace(/((\/)*[^\/]+(\/)*)$/mg, "");
@@ -126,7 +126,7 @@ export default class ModalEventHandler {
     //     });
     // }
 
-    renderData = (response = {}, append = false, backAddress = "/") => {
+    renderData = (response = {}, append = false, backAddress) => {
         var self = this;
         if (response.directoryInfo.nextPageKey === null || response.directoryInfo.nextPageKey === "" || response.directoryInfo.nextPageKey === undefined) {
             $(self.modal).find('#nextPagekey').val(0);
@@ -134,8 +134,7 @@ export default class ModalEventHandler {
             $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
         }
 
-        $(self.modal).find('#path').val(response.directoryInfo.currentPath);
-        $(self.modal).find('#backPath').val(backAddress);
+        $(self.modal).find('#path').val(response.directoryInfo.currentPath == "/" ? backAddress : backAddress + response.directoryInfo.currentPath);
 
         if (!append)
             $(self.modal).find('.modal-body .fm-wrapper').html("");
@@ -151,7 +150,8 @@ export default class ModalEventHandler {
             response.directoryInfo.data.forEach((item) => {
                 if (item.isDirectory) {
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
-                        name: backAddress + (item.name)
+                        name: item.name,
+                        url: backAddress + (item.name)
                     }));
                 } else {
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({

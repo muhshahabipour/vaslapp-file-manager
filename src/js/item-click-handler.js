@@ -52,10 +52,6 @@ var _listenerBackClick = function (event) {
     // const dataset = event.target.dataset;
     let dataset = event.currentTarget.dataset;
 
-    extend(dataset, {
-        backPath: selfModal.find("#backPath").val() || '/'
-    });
-
     eventBackItemClick.detail = dataset
     eventBackItemClick.relatedTarget = selfButton;
 
@@ -69,10 +65,6 @@ var _listenerFolderClick = function (event) {
 
     // const dataset = event.target.dataset;
     let dataset = event.currentTarget.dataset;
-
-    extend(dataset, {
-        backPath: selfModal.find("#backPath").val()
-    });
 
     selfUploader.setCurrentPath(dataset.address);
 
