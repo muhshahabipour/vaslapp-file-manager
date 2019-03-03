@@ -48,7 +48,6 @@ export default class ModalEventHandler {
         headers[header] = token;
         headers["X-Requested-With"] = "XMLHttpRequest";
 
-        console.log("Here 01", self.loadMore)
         if (self.loadMore) {
             self.ajaxStart = true;
 
@@ -60,11 +59,16 @@ export default class ModalEventHandler {
                 })
                 .then(function (response) {
                     self.ajaxStart = false;
+                    if (backAddress == "/" && has(data, "path") && data.path != "/") {
+                        backAddress = (data.path).replace(/([^\/]+)$/mg, "")
+                    }
 
                     if (response.status === 1) {
                         if (!has(response, "directoryInfo") || !has(response.directoryInfo, "nextPageKey") || response.directoryInfo.nextPageKey == "")
                             self.loadMore = false;
                         self.renderData(response, append, backAddress);
+                    } else {
+
                     }
 
                 })
@@ -151,7 +155,7 @@ export default class ModalEventHandler {
                 }
             });
         }
-        
+
         selfClass = this;
         onCustomEvents();
         new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
@@ -194,7 +198,7 @@ var onCustomEvents = function () {
 };
 
 var _listenerFileSelect = function (event) {
-    console.info("this-folder", selfClass);
+    // console.info("this-folder", selfClass);
     selfClass.loadMore = true;
     selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
@@ -204,8 +208,7 @@ var _listenerFileSelect = function (event) {
 }
 
 var _listenerBackSelect = function (event) {
-    console.info("this-back", selfClass);
-    console.info("back", event);
+    // console.info("this-back", selfClass);
     selfClass.loadMore = true;
     selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
