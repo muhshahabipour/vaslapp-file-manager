@@ -152,8 +152,8 @@ export default class ModalEventHandler {
             });
         }
         
-        new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
         onCustomEvents();
+        new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
     };
 
     enableLoadMore = () => {

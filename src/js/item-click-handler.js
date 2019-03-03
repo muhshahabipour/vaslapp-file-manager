@@ -4,9 +4,10 @@ var selfModal = "",
     selfButton = "",
     selfDefaults = "",
     selfUploader = "";
-var eventFileItemClick = "";
-var eventBackItemClick = new Event('fm.back.item.select');
-var eventFolderItemClick = new Event('fm.folder.item.select');
+
+var eventFileItemClick = "", 
+    eventBackItemClick = "", 
+    eventFolderItemClick = "";
 
 
 export default class ItemClickHandler {
@@ -20,6 +21,8 @@ export default class ItemClickHandler {
         //default => fm.file.item.select
         eventFileItemClick = new Event(defaults.customNameForEventFileSelect);
         //eventFileItemClick = new Event("fm.file.item.select");
+        eventBackItemClick = new Event('fm.back.item.select');
+        eventFolderItemClick = new Event('fm.folder.item.select')
 
         var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         fileItems.forEach((item) => {
@@ -57,13 +60,13 @@ var _listenerBackClick = function (event) {
     eventBackItemClick.relatedTarget = selfButton;
 
     // Dispatch the event.
+    console.log("Here Folder Click")
     document.dispatchEvent(eventBackItemClick);
 
 }
 
 
 var _listenerFolderClick = function (event) {
-
 
     // const dataset = event.target.dataset;
     let dataset = event.currentTarget.dataset;
@@ -78,7 +81,8 @@ var _listenerFolderClick = function (event) {
     eventFolderItemClick.relatedTarget = selfButton;
 
 
-    // Dispatch the event.                
+    // Dispatch the event.
+    console.log("Here Back Click")
     document.dispatchEvent(eventFolderItemClick);
 
     // selfModal.modal("hide");
