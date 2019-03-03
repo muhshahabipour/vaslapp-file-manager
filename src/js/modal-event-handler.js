@@ -60,7 +60,9 @@ export default class ModalEventHandler {
                 .then(function (response) {
                     self.ajaxStart = false;
                     if (backAddress == "/" && has(data, "path") && data.path != "/") {
-                        backAddress = (data.path).replace(/([^\/]+)$/mg, "")
+                        backAddress = (data.path).replace(/((\/)*[^\/]+(\/)*)$/mg, "")
+                    }else{
+                        backAddress = "/"
                     }
 
                     if (response.status === 1) {
