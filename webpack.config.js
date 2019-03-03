@@ -99,6 +99,9 @@ module.exports = env => {
         devServer: {
             contentBase: './',
             port: 3000,
+            // proxy: {
+            //     '/panel': 'http://localhost:8081'
+            // }
         },
         node: {
             fs: 'empty'

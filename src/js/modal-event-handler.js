@@ -48,6 +48,7 @@ export default class ModalEventHandler {
         headers[header] = token;
         headers["X-Requested-With"] = "XMLHttpRequest";
 
+        console.log("Here 01", self.loadMore)
         if (self.loadMore) {
             self.ajaxStart = true;
 
@@ -55,7 +56,7 @@ export default class ModalEventHandler {
                     url: self.defaults.ajax.list.url,
                     method: self.defaults.ajax.list.method,
                     data: extend(data, self.defaults.ajax.list.data),
-                    headers: self.defaults.ajax.list.headers || headers
+                    headers: self.defaults.ajax.list.headers || headers,
                 })
                 .then(function (response) {
                     self.ajaxStart = false;
@@ -88,15 +89,15 @@ export default class ModalEventHandler {
             self.uploader.initial();
             self.getFilesList();
             self.enableLoadMore();
-            
             if (self.defaults.useExternalLink) {
                 new LinkSubmitHandler(self.modal, self.button, self.defaults);
             }
         });
 
 
-        $(self.modal).on('hide.bs.modal', function (event) {
+        $(self.modal).on('hidden.bs.modal', function (event) {
             // self.removeEvents();
+            self.loadMore = true;
             $(self.modal).find('.modal-body .fm-wrapper').html("");
             self.uploader.distroy();
         });
@@ -163,7 +164,6 @@ export default class ModalEventHandler {
             event.preventDefault()
             if (!self.ajaxStart) {
                 if (($(self.modal).find('.fm-wrapper').height() <= $(self.modal).find('.modal-body').scrollTop() + ($(self.modal).find('.modal-body').height() + 16))) {
-
                     self.getFilesList({
                         nextPagekey: $(self.modal).find('#nextPagekey').val(),
                         path: $(self.modal).find('#path').val()
