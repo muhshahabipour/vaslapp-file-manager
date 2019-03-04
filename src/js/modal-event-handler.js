@@ -21,6 +21,7 @@ export default class ModalEventHandler {
         this.modal = null;
         this.button = null;
         this.target = null;
+        this.itemClickHandler = null;
         this.ajaxStart = false;
         this.loadMore = true;
         this.linkSubmitInit = false;
@@ -99,24 +100,25 @@ export default class ModalEventHandler {
 
 
         $(self.modal).on('hidden.bs.modal', function (event) {
-            // self.removeEvents();
+            self.removeEvents();
             self.loadMore = true;
             $(self.modal).find('.modal-body .fm-wrapper').html("");
             self.uploader.distroy();
         });
     };
 
-    // removeEvents = () => {
-    //     var fileItems = document.querySelectorAll("[data-toggle='addFile']");
-    //     fileItems.forEach((item) => {
-    //         $(item).off('click');
-    //     });
+    removeEvents = () => {
+        selfClass.itemClickHandler.distroy();
+        // var fileItems = document.querySelectorAll("[data-toggle='addFile']");
+        // fileItems.forEach((item) => {
+        //     $(item).off('click');
+        // });
 
-    //     var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
-    //     folderItems.forEach((item) => {
-    //         $(item).off('click');
-    //     });
-    // }
+        // var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
+        // folderItems.forEach((item) => {
+        //     $(item).off('click');
+        // });
+    }
 
     renderData = (response = {}, append = false) => {
         var self = this;
@@ -164,7 +166,7 @@ export default class ModalEventHandler {
 
         selfClass = this;
         onCustomEvents();
-        new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
+        selfClass.itemClickHandler = new ItemClickHandler(self.modal, self.button, self.defaults, self.uploader);
     };
 
     enableLoadMore = () => {

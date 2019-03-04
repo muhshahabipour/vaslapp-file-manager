@@ -42,6 +42,20 @@ export default class ItemClickHandler {
             backItem.addEventListener('click', _listenerBackClick, false);
         }
     }
+
+
+    distroy(){
+        var fileItems = document.querySelectorAll("[data-toggle='addFile']");
+        fileItems.forEach((item) => {
+            item.removeEventListener('click', _listenerFileClick, false)
+        })
+        var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
+        olderItems.forEach((item) => {
+            item.removeEventListener('click', _listenerFolderClick, false)
+        })
+        var backItem = document.querySelector("[data-toggle='backFolder']");
+        backItem.removeEventListener('click', _listenerBackClick, false);
+    }
 }
 
 
