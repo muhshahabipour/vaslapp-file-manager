@@ -128,15 +128,10 @@ export default class ModalEventHandler {
 
         let backAddress = "";
         if (has(response, "directoryInfo") && response.directoryInfo.currentPath != "/") {
-            console.log("Current Path", response.directoryInfo.currentPath)
             backAddress = (response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "");
-            // } else if (has(response, "directoryInfo") && response.directoryInfo.currentPath == "/") {
-            // console.log("Current Path", response.directoryInfo.currentPath)
-            // backAddress = "";
         } else {
             backAddress = "/";
         }
-        console.log("Back Address", backAddress)
 
         $(self.modal).find('#path').val(response.directoryInfo.currentPath == "/" ? "" : response.directoryInfo.currentPath);
 
@@ -144,7 +139,6 @@ export default class ModalEventHandler {
         if (!append)
             $(self.modal).find('.modal-body .fm-wrapper').html("");
 
-        // console.info("response.directoryInfo.currentPath", response.directoryInfo.currentPath);
 
         if (backAddress && !append && (response.directoryInfo.currentPath !== "/" && response.directoryInfo.currentPath !== "%2F" && response.directoryInfo.currentPath !== ""))
             $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemBack({
@@ -154,14 +148,6 @@ export default class ModalEventHandler {
         if (has(response, "directoryInfo") && has(response.directoryInfo, "data")) {
             response.directoryInfo.data.forEach((item) => {
                 if (item.isDirectory) {
-                    console.group("Address")
-                    console.log("Back", backAddress)
-                    console.log("Current 01", ((response.directoryInfo.currentPath)))
-                    console.log("Current 02", ((response.directoryInfo.currentPath)).replace(/((^\/))/mg, ""))
-                    console.log("Path", (item.name))
-                    console.log("Address", backAddress + (response.directoryInfo.currentPath).replace(/((^\/))/mg, "") + (item.name))
-                    console.groupEnd()
-
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
                         name: item.name,
                         url: backAddress + (response.directoryInfo.currentPath).replace(/((^\/))/mg, "") + (item.name)
@@ -218,9 +204,8 @@ var onCustomEvents = function () {
 };
 
 var _listenerFileSelect = function (event) {
-    // console.info("this-folder", selfClass);
     selfClass.loadMore = true;
-    console.log("event.detail", event.detail)
+    // console.log("event.detail", event.detail)
     selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
         path: event.detail.address
@@ -229,9 +214,8 @@ var _listenerFileSelect = function (event) {
 }
 
 var _listenerBackSelect = function (event) {
-    // console.info("this-back", selfClass);
     selfClass.loadMore = true;
-    console.log("event.detail", event.detail)
+    // console.log("event.detail", event.detail)
     selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
         path: event.detail.address
