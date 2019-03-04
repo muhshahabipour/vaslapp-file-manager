@@ -157,7 +157,7 @@ export default class ModalEventHandler {
 
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
                         name: item.name,
-                        url: backAddress + (item.name)
+                        url: backAddress + ((response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "")).replace(/((^\/))/mg, "") + (item.name)
                     }));
                 } else {
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
