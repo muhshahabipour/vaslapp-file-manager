@@ -156,15 +156,15 @@ export default class ModalEventHandler {
                 if (item.isDirectory) {
                     console.group("Address")
                     console.log("Back", backAddress)
-                    console.log("Current 01", ((response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "")))
-                    console.log("Current 02", ((response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "")).replace(/((^\/))/mg, ""))
+                    console.log("Current 01", ((response.directoryInfo.currentPath)))
+                    console.log("Current 02", ((response.directoryInfo.currentPath)).replace(/((^\/))/mg, ""))
                     console.log("Path", (item.name))
-                    console.log("Address", backAddress + ((response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "")).replace(/((^\/))/mg, "") + (item.name))
+                    console.log("Address", backAddress + (response.directoryInfo.currentPath).replace(/((^\/))/mg, "") + (item.name))
                     console.groupEnd()
 
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
                         name: item.name,
-                        url: backAddress + ((response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "")).replace(/((^\/))/mg, "") + (item.name)
+                        url: backAddress + (response.directoryInfo.currentPath).replace(/((^\/))/mg, "") + (item.name)
                     }));
                 } else {
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFile({
