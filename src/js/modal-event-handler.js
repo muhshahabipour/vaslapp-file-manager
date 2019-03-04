@@ -134,7 +134,7 @@ export default class ModalEventHandler {
             $(self.modal).find('#nextPagekey').val(response.directoryInfo.nextPageKey);
         }
 
-        $(self.modal).find('#path').val(response.directoryInfo.currentPath == "/" ? backAddress : backAddress + response.directoryInfo.currentPath);
+        $(self.modal).find('#path').val(response.directoryInfo.currentPath == "/" ? backAddress : response.directoryInfo.currentPath);
 
         if (!append)
             $(self.modal).find('.modal-body .fm-wrapper').html("");
