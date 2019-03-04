@@ -130,9 +130,9 @@ export default class ModalEventHandler {
         if (has(response, "directoryInfo") && response.directoryInfo.currentPath != "/") {
             console.log("Current Path", response.directoryInfo.currentPath)
             backAddress = (response.directoryInfo.currentPath).replace(/((\/)*[^\/]+(\/)*)$/mg, "");
-        } else if (has(response, "directoryInfo") && response.directoryInfo.currentPath == "/") {
-            console.log("Current Path", response.directoryInfo.currentPath)
-            backAddress = "";
+        // } else if (has(response, "directoryInfo") && response.directoryInfo.currentPath == "/") {
+            // console.log("Current Path", response.directoryInfo.currentPath)
+            // backAddress = "";
         } else {
             backAddress = "/";
         }
