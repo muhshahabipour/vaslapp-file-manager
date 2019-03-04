@@ -130,7 +130,7 @@ export default class ModalEventHandler {
         if (has(response, "directoryInfo") && response.directoryInfo.currentPath != "/") {
             console.log("Current Path", response.directoryInfo.currentPath)
             backAddress = (response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "");
-        // } else if (has(response, "directoryInfo") && response.directoryInfo.currentPath == "/") {
+            // } else if (has(response, "directoryInfo") && response.directoryInfo.currentPath == "/") {
             // console.log("Current Path", response.directoryInfo.currentPath)
             // backAddress = "";
         } else {
@@ -154,6 +154,13 @@ export default class ModalEventHandler {
         if (has(response, "directoryInfo") && has(response.directoryInfo, "data")) {
             response.directoryInfo.data.forEach((item) => {
                 if (item.isDirectory) {
+                    console.group("Address")
+                    console.log("Back", backAddress)
+                    console.log("Current 01", ((response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "")))
+                    console.log("Current 02", ((response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "")).replace(/((^\/))/mg, ""))
+                    console.log("Path", (item.name))
+                    console.log("Address", backAddress + ((response.directoryInfo.currentPath).replace(/([^\/]+(\/)*)$/mg, "")).replace(/((^\/))/mg, "") + (item.name))
+                    console.groupEnd()
 
                     $(self.modal).find('.modal-body .fm-wrapper').append(fileManagerItemFolder({
                         name: item.name,
