@@ -213,18 +213,20 @@ var onCustomEvents = function () {
 var _listenerFileSelect = function (event) {
     // console.info("this-folder", selfClass);
     selfClass.loadMore = true;
+    console.log("event.detail", event.detail)
     selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
         path: event.detail.address
-    }, false, event.detail.backPath);
+    }, false);
 
 }
 
 var _listenerBackSelect = function (event) {
     // console.info("this-back", selfClass);
     selfClass.loadMore = true;
+    console.log("event.detail", event.detail)
     selfClass.getFilesList({
         nextPagekey: event.detail.nextPagekey || '',
         path: event.detail.address
-    }, false, event.detail.backPath);
+    }, false);
 }
