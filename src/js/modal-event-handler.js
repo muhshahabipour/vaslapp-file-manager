@@ -195,11 +195,6 @@ export default class ModalEventHandler {
     };
 }
 
-
-var distroyOnCustomEvents = function(){
-    
-}
-
 var onCustomEvents = function () {
     document.removeEventListener('fm.folder.item.select', _listenerFileSelect, false);
     document.addEventListener('fm.folder.item.select', _listenerFileSelect, false);

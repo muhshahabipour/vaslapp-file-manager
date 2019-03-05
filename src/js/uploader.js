@@ -12,8 +12,8 @@ export default class Uploader {
 
     initial = () => {
         self.fileSelector = document.querySelector('#' + this.id + '-vaslapp-file-selector');
-        fileSelector.removeEventListener("change",  _listenerFileChange, false);
-        fileSelector.addEventListener("change",  _listenerFileChange, false);
+        self.fileSelector.removeEventListener("change",  _listenerFileChange, false);
+        self.fileSelector.addEventListener("change",  _listenerFileChange, false);
     }
 
     setCurrentPath = (path) => {
@@ -22,8 +22,7 @@ export default class Uploader {
     }
 
     destroy = () => {
-        let fileSelector = document.querySelector('#' + this.id + '-vaslapp-file-selector');
-        fileSelector.removeEventListener("change", () => {});
+        self.fileSelector.removeEventListener("change", _listenerFileChange, false);
     }
 
 }
