@@ -102,14 +102,14 @@ export default class ModalEventHandler {
         $(self.modal).on('hidden.bs.modal', function (event) {
             self.button = null;
             self.removeEvents();
-            self.loadMore = false;
+            self.loadMore = true;
             $(self.modal).find('.modal-body .fm-wrapper').html("");
-            self.uploader.distroy();
+            self.uploader.destroy();
         });
     };
 
     removeEvents = () => {
-        selfClass.itemClickHandler.distroy();
+        selfClass.itemClickHandler.destroy();
         // var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         // fileItems.forEach((item) => {
         //     $(item).off('click');
@@ -196,7 +196,9 @@ export default class ModalEventHandler {
 }
 
 
-
+var distroyOnCustomEvents = function(){
+    
+}
 
 var onCustomEvents = function () {
     document.removeEventListener('fm.folder.item.select', _listenerFileSelect, false);

@@ -44,7 +44,7 @@ export default class ItemClickHandler {
     }
 
 
-    distroy(){
+    destroy(){
         var fileItems = document.querySelectorAll("[data-toggle='addFile']");
         fileItems.forEach((item) => {
             item.removeEventListener('click', _listenerFileClick, false)
