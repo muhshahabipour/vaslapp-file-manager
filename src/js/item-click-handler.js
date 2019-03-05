@@ -37,7 +37,7 @@ export default class ItemClickHandler {
         })
 
         var backItem = document.querySelector("[data-toggle='backFolder']");
-        if (backItem) {
+        if (backItem && backItem != null) {
             backItem.removeEventListener('click', _listenerBackClick, false);
             backItem.addEventListener('click', _listenerBackClick, false);
         }
@@ -54,7 +54,8 @@ export default class ItemClickHandler {
             item.removeEventListener('click', _listenerFolderClick, false)
         })
         var backItem = document.querySelector("[data-toggle='backFolder']");
-        backItem.removeEventListener('click', _listenerBackClick, false);
+        if(backItem && backItem != null)
+            backItem.removeEventListener('click', _listenerBackClick, false);
     }
 }
 
