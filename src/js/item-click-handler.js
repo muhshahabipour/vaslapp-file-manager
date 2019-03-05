@@ -50,7 +50,7 @@ export default class ItemClickHandler {
             item.removeEventListener('click', _listenerFileClick, false)
         })
         var folderItems = document.querySelectorAll("[data-toggle='openFolder']");
-        olderItems.forEach((item) => {
+        folderItems.forEach((item) => {
             item.removeEventListener('click', _listenerFolderClick, false)
         })
         var backItem = document.querySelector("[data-toggle='backFolder']");
