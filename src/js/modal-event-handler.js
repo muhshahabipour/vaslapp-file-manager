@@ -100,8 +100,9 @@ export default class ModalEventHandler {
 
 
         $(self.modal).on('hidden.bs.modal', function (event) {
+            self.button = null;
             self.removeEvents();
-            self.loadMore = true;
+            self.loadMore = false;
             $(self.modal).find('.modal-body .fm-wrapper').html("");
             self.uploader.distroy();
         });
